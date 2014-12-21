@@ -14,9 +14,9 @@ import java.util.Date;
 @ParseClassName("Annoucement")
 public class Announcement extends ParseObject implements Parcelable {
 
-    public static final String AUTHOR_COL  = "author";
-    public static final String MESSAGE_COL = "message";
-    public static final String DATE_COL = "date";
+    public static final String AUTHOR_COL  = "poster";
+    public static final String MESSAGE_COL = "details";
+    public static final String DATE_COL = "createdAt";
     public static final String TITLE_COL   = "title";
 
     public Announcement() {}
@@ -38,7 +38,7 @@ public class Announcement extends ParseObject implements Parcelable {
     }
 
     public Date getDate() {
-        return getDate(DATE_COL);
+        return getCreatedAt();
     }
 
     public void setDate(Date time) {

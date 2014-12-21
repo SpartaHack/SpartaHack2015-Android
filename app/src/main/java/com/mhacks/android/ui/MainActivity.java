@@ -97,7 +97,7 @@ public class MainActivity extends ActionBarActivity
     public void setDefaultFragment() {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        CountdownFragment countdownFragment = new CountdownFragment();
+        AnnouncementsFragment countdownFragment = new AnnouncementsFragment();
         fragmentTransaction.replace(R.id.main_container, countdownFragment);
         fragmentTransaction.commit();
 
@@ -112,10 +112,10 @@ public class MainActivity extends ActionBarActivity
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         switch (position) {
             case 0:
-                CountdownFragment countdownFragment = new CountdownFragment();
-                fragmentTransaction.replace(R.id.main_container, countdownFragment);
-                fragmentTransaction.commit();
-                setToolbarTitle("Countdown Timer");
+//                CountdownFragment countdownFragment = new CountdownFragment();
+//                fragmentTransaction.replace(R.id.main_container, countdownFragment);
+//                fragmentTransaction.commit();
+//                setToolbarTitle("Countdown Timer");
                 break;
             case 1:
                 AnnouncementsFragment announcementsFragment = new AnnouncementsFragment();

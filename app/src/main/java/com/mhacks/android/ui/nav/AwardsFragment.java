@@ -4,6 +4,9 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +14,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.mhacks.android.data.model.AnnouncementDud;
 import com.mhacks.android.data.model.Award;
 import com.mhacks.iv.android.R;
 import com.parse.FindCallback;
@@ -20,6 +26,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,36 +35,10 @@ import java.util.List;
 public class AwardsFragment extends Fragment{
 
     private View mAwardsFragView;
-//    private String[] descriptions = {
-//            "Awarded for best VR project. Put your new Oculus Rift to use.",
-//            "Awarded for best pitch. Meet with Peter Thiel and learn from the entrepreneur god himself.",
-//            "Awarded for the project that best implements the Firebase API. Use your premium service to make more killer apps.",
-//            "Awarded for best Arduino project. Get to work on more projects with your own brand new Arduino.",
-//            "Awarded for best software project. Invest that money back into hacking."
-//    };
-//    private String[] prizes = {
-//            "1 Oculus Rift Per Teammate",
-//            "1 On 1 With Peter Thiel",
-//            "2 Years of Firebase Premium",
-//            "1 Arduino Per Teammate",
-//            "$1000"
-//    };
-//    private String[] values = {
-//            "$300",
-//            "-",
-//            "$100",
-//            "$100",
-//            "$1000"
-//    };
-//    private String[] titles = {
-//            "Best VR Project",
-//            "Best Pitch",
-//            "Best Use of Firebase API",
-//            "Best Arduino Project",
-//            "Best Software Project"
-//    };
-
+    RecyclerView mRecyclerView;
     private List<Award> awardList;
+    // Adapter for the listView
+    MainNavAdapter mListAdapter;
 
     @Nullable
     @Override
@@ -65,10 +46,29 @@ public class AwardsFragment extends Fragment{
                              ViewGroup container,
                              Bundle savedInstanceState) {
         mAwardsFragView = inflater.inflate(R.layout.fragment_awards, container, false);
-
+        mRecyclerView = (RecyclerView)  mAwardsFragView.findViewById(R.id.list_cards);
         //Put code for instantiating views, etc here. (before the return statement.)
 
-        awardList = new ArrayList<>();
+        return mAwardsFragView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        awardList = new ArrayList<Award>();
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+        // use a linear layout manager
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(layoutManager);
+
+        // Create and set the adapter for this recyclerView
+        mListAdapter = new MainNavAdapter(getActivity());
+        mRecyclerView.setAdapter(mListAdapter);
+
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Award");
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -84,55 +84,70 @@ public class AwardsFragment extends Fragment{
                 else {
                     Log.d("Awards", "Error: " + e.getMessage());
                 }
+                mListAdapter.notifyDataSetChanged();
             }
         });
 
-        CustomGrid adapter = new CustomGrid(mAwardsFragView.getContext());
-        GridView gridView = (GridView) mAwardsFragView.findViewById(R.id.gridView);
-        gridView.setAdapter(adapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "You clicked an item" + position, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        return mAwardsFragView;
     }
 
-    private class CustomGrid extends BaseAdapter {
+    class MainNavAdapter extends RecyclerView.Adapter<MainNavAdapter.ViewHolder> {
+        Context mContext;
 
-        private Context mContext;
-
-        public CustomGrid(Context c) {
-            mContext = c;
+        // Default constructor
+        MainNavAdapter(Context context) {
+            this.mContext = context;
         }
 
-        @Override
-        public int getCount() {
-            return 0;
-        }
+        // Simple class that holds all the views that need to be reused
+        class ViewHolder extends RecyclerView.ViewHolder{
+            public TextView titleView;
+            public TextView sponsorView;
+            public TextView descriptionView;
 
-        @Override
-        public Object getItem(int i) {
-            return null;
-        }
+            // Default constructor, itemView holds all the views that need to be saved
+            public ViewHolder(View itemView) {
+                super(itemView);
 
-        @Override
-        public long getItemId(int i) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View grid;
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            if (convertView == null) {
-                grid = new View(mContext);
+                // Save the TextViews
+                this.titleView = (TextView) itemView.findViewById(R.id.info_title);
+                this.sponsorView = (TextView) itemView.findViewById(R.id.award_sponsor);
+                this.descriptionView = (TextView) itemView.findViewById(R.id.info_description);
             }
-            grid = inflater.inflate(R.layout.award_grid_item, null);
-            return grid;
         }
 
+        // Create new views (invoked by the layout manager)
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+            // Create the view for this row
+            View row = LayoutInflater.from(mContext)
+                    .inflate(R.layout.award_grid_item, viewGroup, false);
+
+            // Create a new viewHolder which caches all the views that needs to be saved
+            ViewHolder viewHolder = new ViewHolder(row);
+
+            return viewHolder;
+        }
+
+        // Replace the contents of a view (invoked by the layout manager)
+        @Override
+        public void onBindViewHolder(ViewHolder viewHolder, int i) {
+            // - get element from your dataset at this position
+            // - replace the contents of the view with that element
+
+            // Get the current announcement item
+            Award award = awardList.get(i);
+
+            // Set this item's views based off of the announcement data
+            viewHolder.titleView.setText(award.getTitle());
+//            viewHolder.sponsorView.setText(award.getSponsor());
+            viewHolder.descriptionView.setText(award.getDescription());
+
+        }
+
+        // Return the size of your dataset (invoked by the layout manager)
+        @Override
+        public int getItemCount() {
+            return awardList.size();
+        }
     }
 }

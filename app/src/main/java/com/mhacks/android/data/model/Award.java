@@ -12,12 +12,12 @@ import com.parse.ParseObject;
 @ParseClassName("Award")
 public class Award extends ParseObject implements Parcelable {
 
-    public static final String DESCRIPTION_COL = "description";
-    public static final String PRIZE_COL       = "prize";
-    public static final String SPONSOR_COL     = "sponsor";
-    public static final String TITLE_COL       = "title";
-    public static final String VALUE_COL       = "value";
-    public static final String WEBSITE_COL     = "website";
+    public static final String DESCRIPTION_COL = "details";
+//    public static final String PRIZE_COL       = "prize";
+    public static final String SPONSOR_COL     = "Sponsor";
+    public static final String TITLE_COL       = "Title";
+//    public static final String VALUE_COL       = "Value";
+//    public static final String WEBSITE_COL     = "website";
 
     public Award() {}
 
@@ -29,17 +29,21 @@ public class Award extends ParseObject implements Parcelable {
         put(DESCRIPTION_COL, description);
     }
 
-    public String getPrize() {
-        return getString(PRIZE_COL);
+//    public String getPrize() {
+//        return getString(PRIZE_COL);
+//    }
+//
+//    public void setPrize(String prize) {
+//        put(PRIZE_COL, prize);
+//    }
+
+    public String getSponsor() {
+        return  getParseObject(SPONSOR_COL).getString("Name");
     }
 
-    public void setPrize(String prize) {
-        put(PRIZE_COL, prize);
-    }
-
-    public Sponsor getSponsor() {
-        return (Sponsor) getParseObject(SPONSOR_COL);
-    }
+//    public String getSponsorName() {
+//        return getString(SPONSOR_COL);
+//    }
 
     public void setSponsor(Sponsor sponsor) {
         put(SPONSOR_COL, sponsor);
@@ -53,21 +57,21 @@ public class Award extends ParseObject implements Parcelable {
         put(TITLE_COL, title);
     }
 
-    public int getValue() {
-        return getInt(VALUE_COL);
-    }
-
-    public void setValue(int value) {
-        put(VALUE_COL, value);
-    }
-
-    public String getWebsite() {
-        return getString(WEBSITE_COL);
-    }
-
-    public void setWebsite(String website) {
-        put(WEBSITE_COL, website);
-    }
+//    public int getValue() {
+//        return getInt(VALUE_COL);
+//    }
+//
+//    public void setValue(int value) {
+//        put(VALUE_COL, value);
+//    }
+//
+//    public String getWebsite() {
+//        return getString(WEBSITE_COL);
+//    }
+//
+//    public void setWebsite(String website) {
+//        put(WEBSITE_COL, website);
+//    }
 
     @Override
     public int describeContents() {
@@ -78,11 +82,12 @@ public class Award extends ParseObject implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(getObjectId());
         parcel.writeString(getDescription());
-        parcel.writeString(getPrize());
-        parcel.writeParcelable(getSponsor(), i);
+//        parcel.writeString(getPrize());
+//        parcel.writeParcelable(getSponsor(), i);
+        parcel.writeString(getSponsor());
         parcel.writeString(getTitle());
-        parcel.writeInt(getValue());
-        parcel.writeString(getWebsite());
+//        parcel.writeInt(getValue());
+//        parcel.writeString(getWebsite());
     }
 
     public static final Creator<Award> CREATOR = new Creator<Award>() {
@@ -100,10 +105,11 @@ public class Award extends ParseObject implements Parcelable {
     private Award(Parcel source) {
         setObjectId(source.readString());
         setDescription(source.readString());
-        setPrize(source.readString());
-        setSponsor((Sponsor) source.readParcelable(Sponsor.class.getClassLoader()));
+//        setPrize(source.readString());
+//        setSponsor((Sponsor) source.readParcelable(Sponsor.class.getClassLoader()));
         setTitle(source.readString());
-        setValue(source.readInt());
-        setWebsite(source.readString());
+//        setSponsor(source.readString());
+//        setValue(source.readInt());
+//        setWebsite(source.readString());
     }
 }

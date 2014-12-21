@@ -1,45 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent"
-    android:padding="5dp"
-    android:layout_margin="5dp">
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:layout_centerHorizontal="true"
+    card_view:cardCornerRadius="6dp"
+    card_view:cardElevation="3dp"
+    card_view:contentPadding="5dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/titleTextView"
-        android:text="text1"
-        android:layout_gravity="center"
-        android:gravity="center"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/prizeTextView"
-        android:text="text2"
-        android:layout_gravity="center"
-        android:gravity="center"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/valueTextView"
-        android:text="text3"
-        android:layout_gravity="center"
-        android:gravity="center" />
+            <TextView
+                android:id="@+id/info_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Award Title"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_announcement_title"
+                />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/descriptionTextView"
-        android:text="text4"
-        android:layout_gravity="center"
-        android:gravity="center"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                />
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/award_sponsor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Company X"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/text_announcement_date"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/info_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Details of the Award"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_announcement_description" />
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

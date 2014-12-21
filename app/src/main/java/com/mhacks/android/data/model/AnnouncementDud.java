@@ -16,7 +16,7 @@ public class AnnouncementDud {
     public AnnouncementDud(ParseObject announcement) {
         // Get the data from the parseObject first, only for readability and sanity
         String author = announcement.getString(Announcement.AUTHOR_COL);
-        Date date = announcement.getDate(Announcement.DATE_COL);
+        Date date = announcement.getCreatedAt();
         String title = announcement.getString(Announcement.TITLE_COL);
         String message = announcement.getString(Announcement.MESSAGE_COL);
 
