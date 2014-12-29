@@ -10,18 +10,19 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.mhacks.android.ui.nav.AnnouncementsFragment;
 import com.mhacks.android.ui.nav.AwardsFragment;
-import com.mhacks.android.ui.nav.CountdownFragment;
+import com.mhacks.android.ui.nav.MapFragment;
 import com.mhacks.android.ui.nav.NavigationDrawerFragment;
 import com.mhacks.android.ui.nav.ScheduleFragment;
 import com.mhacks.android.ui.nav.SponsorsFragment;
-import com.mhacks.iv.android.R;
 import com.parse.ParseUser;
+import com.spartahack.android.R;
 
 import java.util.Date;
+
+//import com.google.android.gms.maps.MapFragment;
 
 /**
  * Created by Omkar Moghe on 10/22/2014.
@@ -32,7 +33,7 @@ public class MainActivity extends ActionBarActivity
     public static final String TAG = "MainActivity";
 
     public static final String SHOULD_SYNC = "sync";
-    public static final String TIME_SAVED  = "time_saved";
+    public static final String TIME_SAVED = "time_saved";
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
@@ -48,7 +49,6 @@ public class MainActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         // Add the toolbar
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
@@ -102,7 +102,7 @@ public class MainActivity extends ActionBarActivity
         fragmentTransaction.commit();
 
         // Set the title of the toolbar to the current page's title
-        setToolbarTitle("Countdown Timer");
+        setToolbarTitle("Announcements");
     }
 
     // After this are functions for the Drawer
@@ -112,38 +112,38 @@ public class MainActivity extends ActionBarActivity
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         switch (position) {
             case 0:
-//                CountdownFragment countdownFragment = new CountdownFragment();
-//                fragmentTransaction.replace(R.id.main_container, countdownFragment);
-//                fragmentTransaction.commit();
-//                setToolbarTitle("Countdown Timer");
-                break;
-            case 1:
                 AnnouncementsFragment announcementsFragment = new AnnouncementsFragment();
                 fragmentTransaction.replace(R.id.main_container, announcementsFragment);
                 fragmentTransaction.commit();
                 setToolbarTitle("Announcements");
                 break;
-            case 2:
+            case 1:
                 ScheduleFragment scheduleFragment = new ScheduleFragment();
                 fragmentTransaction.replace(R.id.main_container, scheduleFragment);
                 fragmentTransaction.commit();
                 setToolbarTitle("Schedule");
                 break;
-            case 3:
+            case 2:
                 SponsorsFragment sponsorsFragment = new SponsorsFragment();
                 fragmentTransaction.replace(R.id.main_container, sponsorsFragment);
                 fragmentTransaction.commit();
                 setToolbarTitle("Sponsors");
                 break;
-            case 4:
+            case 3:
                 AwardsFragment awardsFragment = new AwardsFragment();
                 fragmentTransaction.replace(R.id.main_container, awardsFragment);
                 fragmentTransaction.commit();
                 setToolbarTitle("Awards");
                 break;
+            case 4:
+                MapFragment mapFragment = new MapFragment();
+                fragmentTransaction.replace(R.id.main_container, mapFragment);
+                fragmentTransaction.commit();
+                setToolbarTitle("Map");
+                break;
         }
 
-        if (mDrawerLayout != null){
+        if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(findViewById(R.id.navigation_drawer));
         }
     }
@@ -170,10 +170,11 @@ public class MainActivity extends ActionBarActivity
 
     @Override
     public void onBackPressed() {
-        if(mDrawerLayout.isDrawerOpen(Gravity.START|Gravity.LEFT)){
+        if (mDrawerLayout.isDrawerOpen(Gravity.START | Gravity.LEFT)) {
             mDrawerLayout.closeDrawers();
             return;
         }
         super.onBackPressed();
     }
+
 }

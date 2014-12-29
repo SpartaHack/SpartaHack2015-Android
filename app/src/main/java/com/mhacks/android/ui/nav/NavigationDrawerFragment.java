@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mhacks.iv.android.R;
+import com.spartahack.android.R;
 
 /**
  * Created by Omkar Moghe on 10/22/2014.

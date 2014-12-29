@@ -15,7 +15,7 @@ import com.alamkanak.weekview.WeekView;
 import com.mhacks.android.ui.weekview.WeekViewModified;
 import com.alamkanak.weekview.WeekViewEvent;
 import com.mhacks.android.data.model.Event;
-import com.mhacks.iv.android.R;
+import com.spartahack.android.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;

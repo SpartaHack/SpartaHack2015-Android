@@ -20,7 +20,7 @@ import com.parse.ParseQuery;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 
-import com.mhacks.iv.android.R;
+import com.spartahack.android.R;
 
 import java.util.ArrayList;
 import java.util.List;

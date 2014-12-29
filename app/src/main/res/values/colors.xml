@@ -2,7 +2,7 @@
 <resources>
     <!-- Material Design Base Colors -->
     <color name="colorPrimary">@color/white</color>
-    <color name="colorPrimaryDark">@color/dev_purple</color>
+    <color name="colorPrimaryDark">@color/dev_green</color>
 
 
 <!-- Begin JN Basic Colors -->
@@ -29,7 +29,7 @@
     <color name="dev_light_purple">#AA66CC</color>
     <color name="dev_purple">#9933CC</color>
     <color name="dev_light_green">#99CC00</color>
-    <color name="dev_green">#669900</color>
+    <color name="dev_green">#27ae60</color>
     <color name="dev_light_orange">#FFBB33</color>
     <color name="dev_orange">#FF8800</color>
     <color name="dev_light_red">#FF4444</color>

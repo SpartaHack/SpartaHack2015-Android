@@ -6,27 +6,20 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.mhacks.android.data.model.AnnouncementDud;
 import com.mhacks.android.data.model.Award;
-import com.mhacks.iv.android.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.spartahack.android.R;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**

@@ -10,7 +10,7 @@
 //import android.widget.TextView;
 //
 //import com.mhacks.android.data.model.Award;
-//import com.mhacks.iv.android.R;
+//import com.spartahack.android.R;
 //
 //import java.util.List;
 //

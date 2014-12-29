@@ -9,55 +9,6 @@
         <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\classes-cabe372dd40994ef396c8ab08fd6687b1e3e50eb.jar" />
     </item>
     <item
-        jar="C:\Users\owner\sparta-android\app\build\intermediates\exploded-aar\com.google.maps.android\android-maps-utils\0.3.4\classes.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="cf251baf39f5c5138224b67b4106eb6331abbd13">
-        <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\classes-7124c403c106ca2d25b56075f6d80a02ff555444.jar" />
-    </item>
-    <item
-        jar="C:\Users\owner\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.2.2\d20be6a5ddd6f8cfd36ebf6dea329873a1c41f1b\jackson-core-2.2.2.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="d20be6a5ddd6f8cfd36ebf6dea329873a1c41f1b">
-        <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\jackson-core-2.2.2-da592794a9fad640048853d47af52763c7e2cb2b.jar" />
-    </item>
-    <item
-        jar="C:\Users\owner\sparta-android\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\21.0.3\classes.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="00b0b7233e1ec64acebfac40d4983d32d4712426">
-        <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\classes-64405e0472dbb051870a6b104765890550562469.jar" />
-    </item>
-    <item
-        jar="C:\Users\owner\sparta-android\app\build\intermediates\exploded-aar\com.viewpagerindicator\library\2.4.1\classes.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="88e8e18d365173ad04a543d76c157e0b644f0b3f">
-        <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\classes-688dcffdd86a2a8fe55bbd358fced30eb8fb0346.jar" />
-    </item>
-    <item
-        jar="C:\Users\owner\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.3.3\1262995965440e28ba5c4d480c9c9ab4ccce84cc\picasso-2.3.3.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="1262995965440e28ba5c4d480c9c9ab4ccce84cc">
-        <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\picasso-2.3.3-300b9c7db3f26e634a9a617d4eee06c3e6fcb628.jar" />
-    </item>
-    <item
-        jar="C:\Users\owner\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-databind\2.2.2\3c8f6018eaa72d43b261181e801e6f8676c16ef6\jackson-databind-2.2.2.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="3c8f6018eaa72d43b261181e801e6f8676c16ef6">
-        <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\jackson-databind-2.2.2-f04a6fa31cb7198c7816a869c3312d9136605c76.jar" />
-    </item>
-    <item
-        jar="C:\Users\owner\sparta-android\app\build\intermediates\exploded-aar\sparta-android\facebook\unspecified\classes.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="43ddc1aa12508f681eac900279357902bb0fe89d">
-        <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\classes-70371b6c5540b6705a91135115fabeef84abbb7a.jar" />
-    </item>
-    <item
         jar="C:\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
         jumboMode="false"
         revision="20.0.0"
@@ -86,11 +37,32 @@
         <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\classes-18c7a918cd600aa6eda41d9d53b3b56050c000e0.jar" />
     </item>
     <item
+        jar="C:\Users\owner\sparta-android\app\build\intermediates\exploded-aar\com.google.maps.android\android-maps-utils\0.3.4\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="cf251baf39f5c5138224b67b4106eb6331abbd13">
+        <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\classes-7124c403c106ca2d25b56075f6d80a02ff555444.jar" />
+    </item>
+    <item
+        jar="C:\Users\owner\sparta-android\app\build\intermediates\exploded-aar\com.google.android.gms\play-services\6.5.87\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
+        <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\classes-59fa1e48bfbd04951b7ae9e377d6eac170e8406e.jar" />
+    </item>
+    <item
         jar="C:\Users\owner\sparta-android\app\libs\bugsnag-android-2.2.0.jar"
         jumboMode="false"
         revision="20.0.0"
         sha1="29daab26cd1393f6ba001466dc103a4969f75d09">
         <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\bugsnag-android-2.2.0-fb585d9d79a0edeef75d980c902887fbdf63f4e8.jar" />
+    </item>
+    <item
+        jar="C:\Users\owner\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.2.2\d20be6a5ddd6f8cfd36ebf6dea329873a1c41f1b\jackson-core-2.2.2.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="d20be6a5ddd6f8cfd36ebf6dea329873a1c41f1b">
+        <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\jackson-core-2.2.2-da592794a9fad640048853d47af52763c7e2cb2b.jar" />
     </item>
     <item
         jar="C:\Users\owner\sparta-android\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
@@ -105,6 +77,13 @@
         revision="20.0.0"
         sha1="2769b82788574f0a4c205491484fda4b1e9b8492">
         <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\classes-4a7b8c382dd803a8d4cf353967f874092a263dd6.jar" />
+    </item>
+    <item
+        jar="C:\Users\owner\sparta-android\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="00b0b7233e1ec64acebfac40d4983d32d4712426">
+        <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\classes-64405e0472dbb051870a6b104765890550562469.jar" />
     </item>
     <item
         jar="C:\Users\owner\.gradle\caches\modules-2\files-2.1\com.firebase\firebase-client\1.0.16\ddb3ceb5e4206bd2c392ddba9b8285649a053a66\firebase-client-1.0.16.jar"
@@ -133,6 +112,34 @@
         revision="20.0.0"
         sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
         <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-15670f2ae099c9054dac5f46e29b4380c1179357.jar" />
+    </item>
+    <item
+        jar="C:\Users\owner\sparta-android\app\build\intermediates\exploded-aar\com.viewpagerindicator\library\2.4.1\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="88e8e18d365173ad04a543d76c157e0b644f0b3f">
+        <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\classes-688dcffdd86a2a8fe55bbd358fced30eb8fb0346.jar" />
+    </item>
+    <item
+        jar="C:\Users\owner\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.3.3\1262995965440e28ba5c4d480c9c9ab4ccce84cc\picasso-2.3.3.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="1262995965440e28ba5c4d480c9c9ab4ccce84cc">
+        <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\picasso-2.3.3-300b9c7db3f26e634a9a617d4eee06c3e6fcb628.jar" />
+    </item>
+    <item
+        jar="C:\Users\owner\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-databind\2.2.2\3c8f6018eaa72d43b261181e801e6f8676c16ef6\jackson-databind-2.2.2.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="3c8f6018eaa72d43b261181e801e6f8676c16ef6">
+        <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\jackson-databind-2.2.2-f04a6fa31cb7198c7816a869c3312d9136605c76.jar" />
+    </item>
+    <item
+        jar="C:\Users\owner\sparta-android\app\build\intermediates\exploded-aar\sparta-android\facebook\unspecified\classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="43ddc1aa12508f681eac900279357902bb0fe89d">
+        <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\classes-70371b6c5540b6705a91135115fabeef84abbb7a.jar" />
     </item>
     <item
         jar="C:\Users\owner\sparta-android\app\build\intermediates\exploded-aar\sparta-android\facebook\unspecified\libs\bolts.jar"

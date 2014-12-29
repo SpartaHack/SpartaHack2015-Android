@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import com.mhacks.iv.android.R;
+import com.spartahack.android.R;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;

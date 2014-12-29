@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.mhacks.android.data.model.Announcement;
 import com.mhacks.android.data.model.AnnouncementDud;
-import com.mhacks.iv.android.R;
+import com.spartahack.android.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
