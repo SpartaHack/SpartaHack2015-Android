@@ -28,6 +28,7 @@ public class AnnouncementDud {
     }
 
     public String getAuthor() {
+
         return author;
     }
 

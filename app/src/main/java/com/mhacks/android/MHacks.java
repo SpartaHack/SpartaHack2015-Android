@@ -8,16 +8,14 @@ import com.mhacks.android.data.model.Announcement;
 import com.mhacks.android.data.model.Award;
 import com.mhacks.android.data.model.Event;
 import com.mhacks.android.data.model.EventType;
-import com.mhacks.android.data.model.Location;
 import com.mhacks.android.data.model.Sponsor;
-import com.mhacks.android.data.model.SponsorTier;
-import com.spartahack.android.R;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
 import com.parse.PushService;
 import com.parse.SaveCallback;
+import com.spartahack.android.R;
 
 /**
  * Created by Omkar Moghe on 11/15/2014.
@@ -29,12 +27,11 @@ public class MHacks extends Application {
         super.onCreate();
 
         ParseObject.registerSubclass(Announcement.class);
+        ParseObject.registerSubclass(Sponsor.class);
         ParseObject.registerSubclass(Award.class);
         ParseObject.registerSubclass(Event.class);
         ParseObject.registerSubclass(EventType.class);
-        ParseObject.registerSubclass(Location.class);
-        ParseObject.registerSubclass(Sponsor.class);
-        ParseObject.registerSubclass(SponsorTier.class);
+
 
 
         // enabling local data store causes weird 'ParseObject not found for update' error

@@ -8,16 +8,15 @@ import com.parse.ParseObject;
 
 /**
  * Created by Omid Ghomeshi on 10/13/14.
+ * edited by Carl Johnson sometime in Spring 2015
  */
 @ParseClassName("Award")
 public class Award extends ParseObject implements Parcelable {
 
     public static final String DESCRIPTION_COL = "details";
-//    public static final String PRIZE_COL       = "prize";
     public static final String SPONSOR_COL     = "Sponsor";
     public static final String TITLE_COL       = "Title";
-//    public static final String VALUE_COL       = "Value";
-//    public static final String WEBSITE_COL     = "website";
+    public static final String VALUE_COL       = "Value";
 
     public Award() {}
 
@@ -29,16 +28,9 @@ public class Award extends ParseObject implements Parcelable {
         put(DESCRIPTION_COL, description);
     }
 
-//    public String getPrize() {
-//        return getString(PRIZE_COL);
-//    }
-//
-//    public void setPrize(String prize) {
-//        put(PRIZE_COL, prize);
-//    }
+    public Sponsor getSponsor() {
+        return (Sponsor) getParseObject(SPONSOR_COL);
 
-    public String getSponsor() {
-        return  getParseObject(SPONSOR_COL).getString("Name");
     }
 
 //    public String getSponsorName() {
@@ -57,21 +49,13 @@ public class Award extends ParseObject implements Parcelable {
         put(TITLE_COL, title);
     }
 
-//    public int getValue() {
-//        return getInt(VALUE_COL);
-//    }
-//
-//    public void setValue(int value) {
-//        put(VALUE_COL, value);
-//    }
-//
-//    public String getWebsite() {
-//        return getString(WEBSITE_COL);
-//    }
-//
-//    public void setWebsite(String website) {
-//        put(WEBSITE_COL, website);
-//    }
+    public String getValue() {
+        return getString(VALUE_COL);
+    }
+
+    public void setValue(String value) {
+        put(VALUE_COL, value);
+    }
 
     @Override
     public int describeContents() {
@@ -82,12 +66,10 @@ public class Award extends ParseObject implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(getObjectId());
         parcel.writeString(getDescription());
-//        parcel.writeString(getPrize());
-//        parcel.writeParcelable(getSponsor(), i);
-        parcel.writeString(getSponsor());
+        parcel.writeParcelable(getSponsor(), i);
+//        parcel.writeString(getSponsor());
         parcel.writeString(getTitle());
 //        parcel.writeInt(getValue());
-//        parcel.writeString(getWebsite());
     }
 
     public static final Creator<Award> CREATOR = new Creator<Award>() {
@@ -106,7 +88,7 @@ public class Award extends ParseObject implements Parcelable {
         setObjectId(source.readString());
         setDescription(source.readString());
 //        setPrize(source.readString());
-//        setSponsor((Sponsor) source.readParcelable(Sponsor.class.getClassLoader()));
+        setSponsor((Sponsor) source.readParcelable(Sponsor.class.getClassLoader()));
         setTitle(source.readString());
 //        setSponsor(source.readString());
 //        setValue(source.readInt());

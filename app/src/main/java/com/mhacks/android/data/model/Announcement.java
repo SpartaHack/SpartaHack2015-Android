@@ -22,6 +22,7 @@ public class Announcement extends ParseObject implements Parcelable {
     public Announcement() {}
 
     public Sponsor getAuthor() {
+
         return (Sponsor) getParseObject(AUTHOR_COL);
     }
 

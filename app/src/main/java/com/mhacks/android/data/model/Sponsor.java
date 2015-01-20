@@ -4,71 +4,54 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.parse.ParseClassName;
-import com.parse.ParseFile;
 import com.parse.ParseObject;
 
 /**
  * Created by Omkar Moghe on 10/13/2014.
+ * edited by Carl Johnson sometime in Spring 2015
  */
-@ParseClassName("Sponsor")
+@ParseClassName("Concierge")
 public class Sponsor extends ParseObject implements Parcelable {
 
-    public static final String DESCRIPTION_COL = "description";
-    public static final String LOCATION_COL    = "location";
-    public static final String LOGO_COL        = "logo";
-    public static final String NAME_COL        = "name";
-    public static final String TIER_COL        = "tier";
-    public static final String WEBSITE_COL     = "website";
+    public static final String TITLE_COL = "Title";
+    public static final String NAME_COL = "Name";
+    public static final String SPECIALTY_COL = "Specialty";
+    public static String twitter = null;
+    public static String email = null;
 
-    public Sponsor() {}
-
-    public String getDescription() {
-        return getString(DESCRIPTION_COL);
-    }
-
-    public void setDescription(String description) {
-        put(DESCRIPTION_COL, description);
-    }
-
-    public Location getLocation() {
-        return (Location) getParseObject(LOCATION_COL);
-    }
-
-    public void setLocation(Location location) {
-        put(LOCATION_COL, location);
-    }
-
-    public ParseFile getLogo() {
-        return getParseFile(LOGO_COL);
-    }
-
-    public void setLogo(ParseFile parseFile) {
-        put(LOGO_COL, parseFile);
+    public String getEmail() {
+        return email;
     }
 
     public String getName() {
         return getString(NAME_COL);
     }
 
-    public void setName(String name) {
-        put(NAME_COL, name);
+    public String getTitle() {
+        return getString(TITLE_COL);
     }
 
-    public SponsorTier getTier() {
-        return (SponsorTier) getParseObject(TIER_COL);
+    public String getTwitter() {
+        return twitter;
     }
+    public String getSpecialty() {
+        return getString(SPECIALTY_COL);
+    }
+    public void setTitle(String title ) {
+        put(TITLE_COL, title);
+    }
+    public void setName(String _name ) { put(NAME_COL,_name); }
+    public void setTwitter(String _twitter ) {
+        twitter = _twitter;
+    }
+    public void setEmail(String _email) {
+        email = _email;
+    }
+    public void setSpecialty(String _speciality) {
+        put(SPECIALTY_COL,_speciality);
+    }
+    public Sponsor() {}
 
-    public void setTier(SponsorTier sponsorTier) {
-        put(TIER_COL, sponsorTier);
-    }
-
-    public String getWebsite() {
-        return getString(WEBSITE_COL);
-    }
-
-    public void setWebsite(String website) {
-        put(WEBSITE_COL, website);
-    }
 
     @Override
     public int describeContents() {
@@ -78,12 +61,9 @@ public class Sponsor extends ParseObject implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(getObjectId());
-        parcel.writeString(getDescription());
-        parcel.writeParcelable(getLocation(), i);
-        parcel.writeValue(getLogo());
+        parcel.writeString(getTitle());
         parcel.writeString(getName());
-        parcel.writeParcelable(getTier(), i);
-        parcel.writeString(getWebsite());
+        parcel.writeString(getTwitter());
     }
 
     public static final Creator<Sponsor> CREATOR = new Creator<Sponsor>() {
@@ -99,7 +79,9 @@ public class Sponsor extends ParseObject implements Parcelable {
     };
 
     private Sponsor(Parcel source) {
-        //check for exception/error at runtime
-        setLogo((ParseFile) source.readValue(ParseFile.class.getClassLoader()));
+        setObjectId(source.readString());
+        setName(source.readString());
+        setTitle(source.readString());
+        setTwitter(source.readString());
     }
 }

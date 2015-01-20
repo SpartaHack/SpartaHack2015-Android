@@ -32,6 +32,7 @@ public class AwardsFragment extends Fragment{
     private List<Award> awardList;
     // Adapter for the listView
     MainNavAdapter mListAdapter;
+    public String sponsorName;
 
     @Nullable
     @Override
@@ -96,6 +97,8 @@ public class AwardsFragment extends Fragment{
             public TextView titleView;
             public TextView sponsorView;
             public TextView descriptionView;
+            public TextView valueView;
+
 
             // Default constructor, itemView holds all the views that need to be saved
             public ViewHolder(View itemView) {
@@ -105,6 +108,7 @@ public class AwardsFragment extends Fragment{
                 this.titleView = (TextView) itemView.findViewById(R.id.info_title);
                 this.sponsorView = (TextView) itemView.findViewById(R.id.award_sponsor);
                 this.descriptionView = (TextView) itemView.findViewById(R.id.info_description);
+                this.valueView = (TextView) itemView.findViewById(R.id.award_value);
             }
         }
 
@@ -132,9 +136,14 @@ public class AwardsFragment extends Fragment{
 
             // Set this item's views based off of the announcement data
             viewHolder.titleView.setText(award.getTitle());
-//            viewHolder.sponsorView.setText(award.getSponsor());
-            viewHolder.descriptionView.setText(award.getDescription());
+            String sponsorId  = award.getSponsor().getObjectId();
 
+
+            viewHolder.sponsorView.setText(sponsorName);
+            viewHolder.descriptionView.setText(award.getDescription());
+            if(award.getValue()!="") {
+                viewHolder.valueView.setText(award.getValue()+":");
+            }
         }
 
         // Return the size of your dataset (invoked by the layout manager)

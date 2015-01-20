@@ -5,7 +5,7 @@
     <string-array name="nav_items">
         <item name="announcements">Announcements</item>
         <item name="schedule">Schedule</item>
-        <item name="sponsors">Sponsors</item>
+        <item name="sponsors">Concierge</item>
         <item name="awards">Awards</item>
         <item name="awards">Map</item>
     </string-array>

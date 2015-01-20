@@ -127,7 +127,7 @@ public class MainActivity extends ActionBarActivity
                 SponsorsFragment sponsorsFragment = new SponsorsFragment();
                 fragmentTransaction.replace(R.id.main_container, sponsorsFragment);
                 fragmentTransaction.commit();
-                setToolbarTitle("Sponsors");
+                setToolbarTitle("Concierge");
                 break;
             case 3:
                 AwardsFragment awardsFragment = new AwardsFragment();

@@ -47,14 +47,30 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/info_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Details of the Award"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_announcement_description" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$1000"
+                android:id="@+id/award_value"
+                android:textColor="@color/black"
+                android:layout_marginTop="5dp"
+                android:textIsSelectable="true"
+                android:textSize="@dimen/text_announcement_description" />
+
+            <TextView
+                android:id="@+id/info_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Details of the Award"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_announcement_description" />
+        </LinearLayout>
 
     </LinearLayout>
 
