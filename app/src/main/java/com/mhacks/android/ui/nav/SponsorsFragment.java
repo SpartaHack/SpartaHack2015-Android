@@ -33,12 +33,13 @@ public class SponsorsFragment extends Fragment{
 
     RecyclerView mRecyclerView;
     // Adapter for the listView
-    MainNavAdapter mListAdapter;
+    SimpleAdapter mListAdapter;
     private View mSponsorsFragView;
     private GridView sponsorView;
     private ImageAdapter adapter;
     private Context context;
     private ArrayList<Sponsor> sponsors;
+    private List<SimpleSectionedRecyclerViewAdapter.Section> sections;
 
     @Nullable
     @Override
@@ -56,7 +57,7 @@ public class SponsorsFragment extends Fragment{
         super.onActivityCreated(savedInstanceState);
 
         sponsors = new ArrayList<Sponsor>();
-
+        sections = new ArrayList<SimpleSectionedRecyclerViewAdapter.Section>();
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
@@ -65,8 +66,8 @@ public class SponsorsFragment extends Fragment{
         mRecyclerView.setLayoutManager(layoutManager);
 
         // Create and set the adapter for this recyclerView
-        mListAdapter = new MainNavAdapter(getActivity());
-        mRecyclerView.setAdapter(mListAdapter);
+        //mListAdapter = new MainNavAdapter(getActivity());
+
 
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Concierge");
@@ -77,29 +78,65 @@ public class SponsorsFragment extends Fragment{
             public void done(List<ParseObject> objectList, ParseException e) {
                 if (e == null) {
                     Log.d("Sponsors", "Retrieved " + objectList.size() + " Sponsors");
-                    for (ParseObject p : objectList) {
-                        Sponsor sponsor = (Sponsor) p;
-                        ParseObject user = p.getParseUser("Sponsor");
+                    String lastTitle = null;
+                    int numSponsors = 0;
+
+                    for (int i=0; i<objectList.size();i++) {
+                        Sponsor sponsor = (Sponsor) objectList.get(i);
+                        ParseObject user = sponsor.getParseUser("Sponsor");
+                        if(!sponsor.getTitle().equals(lastTitle)) {
+                            sections.add(new SimpleSectionedRecyclerViewAdapter.Section(i+numSponsors,sponsor.getTitle()));
+                            numSponsors++;
+                        }
                         sponsor.put("Name",user.getString("Name"));
                         sponsor.put("Specialty",user.getString("Specialty"));
+                        lastTitle = sponsor.getTitle();
                         sponsors.add(sponsor);
                     }
                 }
                 else {
                     Log.d("Sponsors", "Error: " + e.getMessage());
                 }
-                mListAdapter.notifyDataSetChanged();
+                mListAdapter = new SimpleAdapter(getActivity(),sponsors);
+                mRecyclerView.setAdapter(mListAdapter);
+
+//                //This is the code to provide a sectioned list
+//                List<SimpleSectionedRecyclerViewAdapter.Section> sections =
+//                        new ArrayList<SimpleSectionedRecyclerViewAdapter.Section>();
+
+                //Sections
+//                sections.add(new SimpleSectionedRecyclerViewAdapter.Section(0,"SpartaHack"));
+//                sections.add(new SimpleSectionedRecyclerViewAdapter.Section(1,"Hackers"));
+
+                //Add your adapter to the sectionAdapter
+                SimpleSectionedRecyclerViewAdapter.Section[] dummy = new SimpleSectionedRecyclerViewAdapter.Section[sections.size()];
+                SimpleSectionedRecyclerViewAdapter mSectionedAdapter = new
+                        SimpleSectionedRecyclerViewAdapter(getActivity(),R.layout.section,R.id.section_text,mListAdapter);
+                mSectionedAdapter.setSections(sections.toArray(dummy));
+
+                //Apply this adapter to the RecyclerView
+                mRecyclerView.setAdapter(mSectionedAdapter);
+
             }
         });
+
+
 
     }
     class MainNavAdapter extends RecyclerView.Adapter<MainNavAdapter.ViewHolder> {
         Context mContext;
-
+        private List<String> mData;
         // Default constructor
         MainNavAdapter(Context context) {
             this.mContext = context;
         }
+
+//        public SimpleAdapter(Context context, String[] data) {
+//            mContext = context;
+//            if (data != null)
+//                mData = new ArrayList<String>(Arrays.asList(data));
+//            else mData = new ArrayList<String>();
+//        }
 
         // Simple class that holds all the views that need to be reused
         class ViewHolder extends RecyclerView.ViewHolder{
