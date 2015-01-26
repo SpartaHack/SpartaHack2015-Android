@@ -88,8 +88,10 @@ public class SponsorsFragment extends Fragment{
                             sections.add(new SimpleSectionedRecyclerViewAdapter.Section(i+numSponsors,sponsor.getTitle()));
                             numSponsors++;
                         }
-                        sponsor.put("Name",user.getString("Name"));
-                        sponsor.put("Specialty",user.getString("Specialty"));
+                        sponsor.setName(user.getString("Name"));
+                        sponsor.setSpecialty(user.getString("Specialty"));
+                        sponsor.setTwitter(user.getString("Twitter"));
+                        sponsor.setEmail(user.getString("email"));
                         lastTitle = sponsor.getTitle();
                         sponsors.add(sponsor);
                     }

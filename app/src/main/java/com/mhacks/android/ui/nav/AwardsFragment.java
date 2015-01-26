@@ -71,8 +71,14 @@ public class AwardsFragment extends Fragment{
                 if (e == null) {
                     Log.d("Awards", "Retrieved " + objectList.size() + " awards");
                     for (ParseObject p : objectList) {
-                        Award a = (Award) p;
-                        awardList.add(a);
+                        Award award = (Award) p;
+                        ParseObject user = award.getParseUser("Sponsor");
+                        try {
+                            award.put("SponsorName",user.fetchIfNeeded().getString("Title"));
+                        } catch (ParseException e1) {
+                            e1.printStackTrace();
+                        }
+                        awardList.add(award);
                     }
                 }
                 else {
@@ -136,10 +142,10 @@ public class AwardsFragment extends Fragment{
 
             // Set this item's views based off of the announcement data
             viewHolder.titleView.setText(award.getTitle());
-            String sponsorId  = award.getSponsor().getObjectId();
+            //Sponsor sponsor  = award.getSponsor();
 
 
-            viewHolder.sponsorView.setText(sponsorName);
+            viewHolder.sponsorView.setText(award.getString("SponsorName"));
             viewHolder.descriptionView.setText(award.getDescription());
             if(award.getValue()!="") {
                 viewHolder.valueView.setText(award.getValue()+":");

@@ -77,8 +77,9 @@
     <eat-comment/>
     <color name="charcoal">#272727</color>
     <color name="charcoal_semitransparent">#BB272727</color>
-    <color name="colorPrimary">@color/white</color>
-    <color name="colorPrimaryDark">@color/dev_green</color>
+    <color name="colorPrimary">@color/lightBrown</color>
+    <color name="colorPrimaryDark">@color/darkBrown</color>
+    <color name="colorPrimaryOrange">@color/spartaOrange</color>
     <!-- From: file:/C:/Users/owner/sparta-android/app/build/intermediates/exploded-aar/sparta-android/facebook/unspecified/res/values/values.xml -->
     <eat-comment/>
     <color name="com_facebook_blue">#3B5998</color>
@@ -107,6 +108,7 @@
     <color name="common_signin_btn_light_text_pressed">@android:color/white</color>
     <!-- From: file:/C:/Users/owner/sparta-android/app/src/main/res/values/colors.xml -->
     <eat-comment/>
+    <color name="darkBrown">#433830</color>
     <color name="darker_charcoal">#191919</color>
     <color name="darker_charcoal_semitransparent">#99191919</color>
     <color name="darkest_charcoal">#101010</color>
@@ -137,6 +139,7 @@
     <color name="hint_foreground_material_light">@color/bright_foreground_disabled_material_light</color>
     <!-- From: file:/C:/Users/owner/sparta-android/app/src/main/res/values/colors.xml -->
     <eat-comment/>
+    <color name="lightBrown">#F7E8DE</color>
     <color name="light_blue">#00FFFF</color>
     <!-- From: file:/C:/Users/owner/sparta-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values/values.xml -->
     <eat-comment/>
@@ -198,6 +201,11 @@
     <color name="secondary_text_default_material_light">#8a000000</color>
     <color name="secondary_text_disabled_material_dark">#36ffffff</color>
     <color name="secondary_text_disabled_material_light">#24000000</color>
+    <!-- From: file:/C:/Users/owner/sparta-android/app/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="spartaOrange">#D89F39</color>
+    <!-- From: file:/C:/Users/owner/sparta-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values/values.xml -->
+    <eat-comment/>
     <color name="switch_thumb_normal_material_dark">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_light">#fff1f1f1</color>
     <!-- From: file:/C:/Users/owner/sparta-android/app/src/main/res/values/colors.xml -->
@@ -643,7 +651,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <!--<item name="drawerArrowStyle">@style/DrawerArrowStyle</item>-->
     </style>
     <!-- From: file:/C:/Users/owner/sparta-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values/values.xml -->
     <eat-comment/>
@@ -1439,15 +1447,9 @@ m>        <item name="android:textColorLink">@color/link_text_material_dark</ite
     </style>
     <!-- From: file:/C:/Users/owner/sparta-android/app/src/main/res/values/themes.xml -->
     <eat-comment/>
-    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+    <style name="DrawerIconStyle" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
-        <item name="color">@color/white</item>
-    </style>
-    <style name="MHacksTheme" parent="android:Theme.Holo">
-        <item name="android:actionBarStyle">@style/action_bar_style</item>
-        <item name="android:textAppearance">@style/text_appearance</item>
-        <item name="android:windowBackground">@color/bg_neutral</item>
-        <!--<item name="android:homeAsUpIndicator">@null</item>-->
+        <item name="color">@color/colorPrimaryOrange</item>
     </style>
     <!-- From: file:/C:/Users/owner/sparta-android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.0/res/values/values.xml -->
     <eat-comment/>
@@ -1694,6 +1696,15 @@ m>        <item name="android:textColorLink">@color/link_text_material_dark</ite
     <style name="ThemeOverlay.AppCompat.Dark" parent="Base.ThemeOverlay.AppCompat.Dark"/>
     <style name="ThemeOverlay.AppCompat.Dark.ActionBar" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="ThemeOverlay.AppCompat.Light" parent="Base.ThemeOverlay.AppCompat.Light"/>
+    <!-- From: file:/C:/Users/owner/sparta-android/app/src/main/res/values/themes.xml -->
+    <eat-comment/>
+    <style name="ToolBarStyle" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">@color/colorPrimaryOrange</item>
+        <item name="drawerArrowStyle">@style/DrawerIconStyle</item>
+        <item name="android:textColorSecondary">@color/colorPrimaryOrange</item>
+        <item name="actionMenuTextColor">@color/colorPrimaryOrange</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+    </style>
     <!-- From: file:/C:/Users/owner/sparta-android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_styles.xml -->
     <eat-comment/>
     <style name="WalletFragmentDefaultButtonTextAppearance">
@@ -1783,13 +1794,6 @@ m>        <item name="android:textColorLink">@color/link_text_material_dark</ite
     <style name="Widget.AppCompat.Spinner.DropDown.ActionBar" parent="Base.Widget.AppCompat.Spinner.DropDown.ActionBar"/>
     <style name="Widget.AppCompat.Toolbar" parent="Base.Widget.AppCompat.Toolbar"/>
     <style name="Widget.AppCompat.Toolbar.Button.Navigation" parent="Base.Widget.AppCompat.Toolbar.Button.Navigation"/>
-    <!-- From: file:/C:/Users/owner/sparta-android/app/src/main/res/values/themes.xml -->
-    <eat-comment/>
-    <style name="action_bar_style" parent="android:Widget.Holo.Light.ActionBar.Solid">
-        <item name="android:background">@color/adapter_card_shadow_color</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
     <!-- From: file:/C:/Users/owner/sparta-android/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="adapter_card_body">
@@ -1859,13 +1863,6 @@ m>        <item name="android:textColorLink">@color/link_text_material_dark</ite
         <item name="android:textColor">#4B5164</item>
         <item name="android:gravity">center</item>
     </style>
-    <!-- From: file:/C:/Users/owner/sparta-android/app/src/main/res/values/themes.xml -->
-    <eat-comment/>
-    <style name="text_appearance" parent="android:TextAppearance">
-        <!--<item name="android:textColor">@android:color/white</item>-->
-    </style>
-    <!-- From: file:/C:/Users/owner/sparta-android/app/build/intermediates/exploded-aar/sparta-android/facebook/unspecified/res/values/values.xml -->
-    <eat-comment/>
     <style name="tooltip_bubble_text">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:gravity">left</item>

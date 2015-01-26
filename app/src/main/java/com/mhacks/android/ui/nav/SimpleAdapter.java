@@ -1,10 +1,13 @@
 package com.mhacks.android.ui.nav;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mhacks.android.data.model.Sponsor;
@@ -24,11 +27,17 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
     public static class SimpleViewHolder extends RecyclerView.ViewHolder {
         public final TextView name;
         public final TextView specialty;
+        public final ImageButton twitterButton;
+        public final ImageButton mailButton;
+
 
         public SimpleViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.concierge_name);
             specialty = (TextView) view.findViewById(R.id.concierge_specialty);
+
+            twitterButton = (ImageButton) view.findViewById(R.id.concierge_twitter_btn);
+            mailButton = (ImageButton) view.findViewById(R.id.concierge_mail_btn);
         }
     }
 
@@ -51,12 +60,27 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
     public void onBindViewHolder(SimpleViewHolder holder, final int position) {
         holder.name.setText(mData.get(position).getName());
         holder.specialty.setText(mData.get(position).getSpecialty());
-//        holder.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(mContext, "Position =" + position, Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        holder.twitterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=" + mData.get(position).getTwitter())));
+                } catch (Exception e) {
+                    mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/#!/" + mData.get(position))));
+                }
+            }
+        });
+        holder.mailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("plain/text");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[] { mData.get(position).getEmail() });
+                intent.putExtra(Intent.EXTRA_SUBJECT, "SpartaHack Help");
+                intent.putExtra(Intent.EXTRA_TEXT, "");
+                mContext.startActivity(Intent.createChooser(intent, ""));
+            }
+        });
     }
 
     @Override

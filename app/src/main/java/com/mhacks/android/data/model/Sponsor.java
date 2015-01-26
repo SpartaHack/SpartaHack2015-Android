@@ -16,11 +16,12 @@ public class Sponsor extends ParseObject implements Parcelable {
     public static final String TITLE_COL = "Title";
     public static final String NAME_COL = "Name";
     public static final String SPECIALTY_COL = "Specialty";
-    public static String twitter = null;
-    public static String email = null;
+    public static String TWITTER_COL = "Twitter";
+    public static String EMAIL_COL = "email";
+
 
     public String getEmail() {
-        return email;
+        return getString(EMAIL_COL);
     }
 
     public String getName() {
@@ -32,7 +33,7 @@ public class Sponsor extends ParseObject implements Parcelable {
     }
 
     public String getTwitter() {
-        return twitter;
+        return getString(TWITTER_COL);
     }
     public String getSpecialty() {
         return getString(SPECIALTY_COL);
@@ -42,10 +43,10 @@ public class Sponsor extends ParseObject implements Parcelable {
     }
     public void setName(String _name ) { put(NAME_COL,_name); }
     public void setTwitter(String _twitter ) {
-        twitter = _twitter;
+        put(TWITTER_COL,_twitter);
     }
     public void setEmail(String _email) {
-        email = _email;
+        put(EMAIL_COL,_email);
     }
     public void setSpecialty(String _speciality) {
         put(SPECIALTY_COL,_speciality);

@@ -5,13 +5,13 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_margin="1dp"
     android:layout_centerHorizontal="true"
-    card_view:cardCornerRadius="6dp"
+    card_view:cardCornerRadius="2dp"
     card_view:cardElevation="3dp"
     card_view:contentPadding="5dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -19,9 +19,8 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".8">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/concierge_name"
@@ -44,16 +43,35 @@
 
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/concierge_twitter_btn"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:src="@drawable/twitter_icon"
-            android:contentDescription="twitter"
-            android:background="transparent"
-            android:layout_weight=".2"
-            android:layout_gravity="center_vertical" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
 
-    </LinearLayout>
+            <ImageButton
+                android:id="@+id/concierge_twitter_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/twitter_icon"
+                android:contentDescription="twitter"
+                android:background="@null"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/concierge_mail_btn"
+                android:src="@drawable/mail"
+                android:background="@null"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

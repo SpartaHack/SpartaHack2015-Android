@@ -30,12 +30,7 @@ public class Award extends ParseObject implements Parcelable {
 
     public Sponsor getSponsor() {
         return (Sponsor) getParseObject(SPONSOR_COL);
-
     }
-
-//    public String getSponsorName() {
-//        return getString(SPONSOR_COL);
-//    }
 
     public void setSponsor(Sponsor sponsor) {
         put(SPONSOR_COL, sponsor);

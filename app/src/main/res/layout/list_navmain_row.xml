@@ -4,13 +4,6 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_nav_mainitem_icon_sides"
-        android:layout_marginRight="@dimen/margin_nav_mainitem_icon_sides"
-        android:src="@drawable/ic_launcher" />
-
     <TextView
         android:id="@+id/row_title"
         android:layout_width="wrap_content"
@@ -19,6 +12,8 @@
         android:text="@string/garbage_fill_short"
         android:textColor="@color/black"
         android:textSize="@dimen/text_nav_main"
-        />
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp" />
 
 </LinearLayout>

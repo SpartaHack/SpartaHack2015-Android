@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:gravity="center_vertical"
-    android:paddingLeft="16dp"
+    android:paddingLeft="5dp"
     android:singleLine="true"
     android:textAllCaps="true"
-    android:textColor="@color/dev_light_green"
+    android:textColor="@color/darkBrown"
     android:background="@android:color/transparent"
-    android:textSize="16sp"
+    android:textSize="25dp"
     android:id="@+id/section_text"
-    android:textStyle="bold" />
+    android:textStyle="bold"
+    android:text="Concierge Group Title" />

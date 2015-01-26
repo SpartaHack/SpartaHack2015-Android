@@ -15,7 +15,6 @@ import com.mhacks.android.ui.nav.AnnouncementsFragment;
 import com.mhacks.android.ui.nav.AwardsFragment;
 import com.mhacks.android.ui.nav.MapFragment;
 import com.mhacks.android.ui.nav.NavigationDrawerFragment;
-import com.mhacks.android.ui.nav.ScheduleFragment;
 import com.mhacks.android.ui.nav.SponsorsFragment;
 import com.parse.ParseUser;
 import com.spartahack.android.R;
@@ -99,7 +98,7 @@ public class MainActivity extends ActionBarActivity
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         AnnouncementsFragment countdownFragment = new AnnouncementsFragment();
         fragmentTransaction.replace(R.id.main_container, countdownFragment);
-        fragmentTransaction.commit();
+        fragmentTransaction.addToBackStack("Announcements").commit();
 
         // Set the title of the toolbar to the current page's title
         setToolbarTitle("Announcements");
@@ -109,36 +108,37 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         FragmentManager fragmentManager = getFragmentManager();
+
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         switch (position) {
             case 0:
                 AnnouncementsFragment announcementsFragment = new AnnouncementsFragment();
                 fragmentTransaction.replace(R.id.main_container, announcementsFragment);
-                fragmentTransaction.commit();
+                fragmentTransaction.addToBackStack("Announcements").commit();
                 setToolbarTitle("Announcements");
                 break;
             case 1:
-                ScheduleFragment scheduleFragment = new ScheduleFragment();
-                fragmentTransaction.replace(R.id.main_container, scheduleFragment);
-                fragmentTransaction.commit();
-                setToolbarTitle("Schedule");
+//                ScheduleFragment scheduleFragment = new ScheduleFragment();
+//                fragmentTransaction.replace(R.id.main_container, scheduleFragment);
+//                fragmentTransaction.addToBackStack("Schedule").commit();
+//                setToolbarTitle("Schedule");
                 break;
             case 2:
                 SponsorsFragment sponsorsFragment = new SponsorsFragment();
                 fragmentTransaction.replace(R.id.main_container, sponsorsFragment);
-                fragmentTransaction.commit();
+                fragmentTransaction.addToBackStack("Concierge").commit();
                 setToolbarTitle("Concierge");
                 break;
             case 3:
                 AwardsFragment awardsFragment = new AwardsFragment();
                 fragmentTransaction.replace(R.id.main_container, awardsFragment);
-                fragmentTransaction.commit();
+                fragmentTransaction.addToBackStack("Awards").commit();
                 setToolbarTitle("Awards");
                 break;
             case 4:
                 MapFragment mapFragment = new MapFragment();
                 fragmentTransaction.replace(R.id.main_container, mapFragment);
-                fragmentTransaction.commit();
+                fragmentTransaction.addToBackStack("Map").commit();
                 setToolbarTitle("Map");
                 break;
         }
@@ -172,9 +172,16 @@ public class MainActivity extends ActionBarActivity
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(Gravity.START | Gravity.LEFT)) {
             mDrawerLayout.closeDrawers();
-            return;
+        } else if (getFragmentManager().getBackStackEntryCount() != 0) {
+            FragmentManager tbname = getFragmentManager();
+            String name = getFragmentManager().getBackStackEntryAt(0).getName();
+            setToolbarTitle(getFragmentManager().getBackStackEntryAt(0).getName());
+            getFragmentManager().popBackStack();
+           // getFragmentManager().
         }
-        super.onBackPressed();
+            else {
+            super.onBackPressed();
+        }
     }
 
 }

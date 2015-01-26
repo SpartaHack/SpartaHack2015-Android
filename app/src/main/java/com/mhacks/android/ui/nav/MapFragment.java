@@ -41,23 +41,34 @@ public class MapFragment extends Fragment {
         }
 
         googleMap = mMapView.getMap();
-        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         // latitude and longitude
-        double latitude = 42.727466;
-        double longitude = -84.482058;
+        double wellsLat = 42.727466;
+        double wellsLong = -84.482058;
 
-        // create marker
-        MarkerOptions marker = new MarkerOptions().position(
-                new LatLng(latitude, longitude)).title("Hello Maps");
+        double stadiumParkingLat = 42.726603;
+        double stadiumParkingLong = -84.484954;
+
+        // create marker for wells
+        MarkerOptions markerWells = new MarkerOptions().position(
+                new LatLng(wellsLat, wellsLong)).title("Wells Hall");
+
+        // create marker for stadium parking
+        MarkerOptions markerStadiumParking = new MarkerOptions().position(
+                new LatLng(stadiumParkingLat, stadiumParkingLong)).title("Parking");
+
 
         // Changing marker icon
-        marker.icon(BitmapDescriptorFactory
-                .defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+        markerWells.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_icon));
 
-        // adding marker
-        googleMap.addMarker(marker);
+        // Changing marker icon
+        markerStadiumParking.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_icon));
+                // adding marker
+        googleMap.addMarker(markerWells);
+        googleMap.addMarker(markerStadiumParking);
+
         CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(new LatLng(42.727466, -84.482058)).zoom(18).build();
+                .target(new LatLng(42.727285, -84.482958)).zoom(17).build();
         googleMap.animateCamera(CameraUpdateFactory
                 .newCameraPosition(cameraPosition));
 
