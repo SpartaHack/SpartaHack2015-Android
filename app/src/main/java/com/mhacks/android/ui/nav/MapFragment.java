@@ -62,7 +62,7 @@ public class MapFragment extends Fragment {
         markerWells.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_icon));
 
         // Changing marker icon
-        markerStadiumParking.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_icon));
+           markerStadiumParking.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_icon));
                 // adding marker
         googleMap.addMarker(markerWells);
         googleMap.addMarker(markerStadiumParking);

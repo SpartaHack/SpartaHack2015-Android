@@ -2,6 +2,7 @@ package com.mhacks.android.ui.nav;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -21,6 +24,18 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.spartahack.android.R;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +55,8 @@ public class SponsorsFragment extends Fragment{
     private Context context;
     private ArrayList<Sponsor> sponsors;
     private List<SimpleSectionedRecyclerViewAdapter.Section> sections;
+    private Button mConciergeContact;
+    private EditText mConciergeContactInput;
 
     @Nullable
     @Override
@@ -49,7 +66,8 @@ public class SponsorsFragment extends Fragment{
         mSponsorsFragView = inflater.inflate(R.layout.fragment_concierge, container, false);
         mRecyclerView = (RecyclerView)  mSponsorsFragView.findViewById(R.id.list_cards);
         //Put code for instantiating views, etc here. (before the return statement.)
-
+        mConciergeContact = (Button) mSponsorsFragView.findViewById(R.id.concierge_contact);
+        mConciergeContactInput = (EditText) mSponsorsFragView.findViewById(R.id.conciergeContactInput);
         return mSponsorsFragView;
     }
     @Override
@@ -122,9 +140,58 @@ public class SponsorsFragment extends Fragment{
             }
         });
 
-
+    mConciergeContact.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            new postToHTTP().execute(mConciergeContactInput.getText().toString());
+        }
+    });
 
     }
+
+    /**
+     * post to Slack API for Concierge Service asynchronously
+     * we will use #concierge in slack to deal with problems attendess are having
+     */
+    private class postToHTTP extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... attendeeContactInput) {
+            postData(attendeeContactInput[0]);
+            return null;
+        }
+        public void postData(String attendeeContactInput)  {
+            // Create a new HttpClient and Post Header
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost("https://hooks.slack.com/services/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");
+
+            try {
+                // Add your data
+                JSONObject json = new JSONObject();
+
+                try {
+                    json.put("text",attendeeContactInput);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+                nameValuePairs.add(new BasicNameValuePair("payload", json.toString()));
+                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+
+                // Execute HTTP Post Request
+                HttpResponse response = httpclient.execute(httppost);
+                int xx=0;
+            } catch (ClientProtocolException e) {
+                // TODO Auto-generated catch block
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+            }
+        }
+    }
+
+
+
     class MainNavAdapter extends RecyclerView.Adapter<MainNavAdapter.ViewHolder> {
         Context mContext;
         private List<String> mData;

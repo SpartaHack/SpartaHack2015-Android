@@ -9,6 +9,29 @@
     android:layout_height="match_parent"
     android:layout_margin="10dp">
 
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/conciergeContactInput"
+        android:background="@drawable/rounded_edittext"
+        android:autoText="true"
+        android:layout_margin="3dp"
+        android:minHeight="75dp"
+        android:longClickable="true"
+        android:textColor="@color/darkBrown"
+        android:textCursorDrawable="@null"
+        android:hint="Problem? Contact the SpartaHack Team directly here."
+        android:textColorHint="#A69779"
+        android:padding="5dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CONTACT SPARTAHACK"
+        android:id="@+id/concierge_contact"
+        android:background="@drawable/rounded_button"
+        android:layout_margin="3dp" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_cards"
         android:layout_width="match_parent"
