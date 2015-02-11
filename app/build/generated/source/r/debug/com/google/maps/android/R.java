@@ -90,7 +90,7 @@ public final class R {
 		public static final int google_play_services_version = 0x7f0b0001;
 	}
 	public static final class layout {
-		public static final int text_bubble = 0x7f030037;
+		public static final int text_bubble = 0x7f030038;
 	}
 	public static final class raw {
 		public static final int gtm_analytics = 0x7f050000;

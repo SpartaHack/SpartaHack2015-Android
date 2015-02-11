@@ -517,6 +517,7 @@
     <string name="common_signin_button_text_long">Sign in with Google</string>
     <!-- From: file:/C:/Users/owner/sparta-android/app/src/main/res/values/strings.xml -->
     <eat-comment/>
+    <string name="conciergeInputHint">Need anything from SpartaHack? Enter your request and location here.</string>
     <string name="concierge_email">Hey %1$s,</string>
     <string name="concierge_tweet">Hey @%1$s,</string>
     <string name="confirm_delete">Confirm Delete</string>

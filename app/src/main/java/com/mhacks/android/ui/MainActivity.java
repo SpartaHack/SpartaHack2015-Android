@@ -2,7 +2,6 @@ package com.mhacks.android.ui;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -13,16 +12,14 @@ import android.view.MenuItem;
 
 import com.mhacks.android.ui.nav.AnnouncementsFragment;
 import com.mhacks.android.ui.nav.AwardsFragment;
+import com.mhacks.android.ui.nav.ConciergeFragment;
 import com.mhacks.android.ui.nav.MapFragment;
 import com.mhacks.android.ui.nav.NavigationDrawerFragment;
-import com.mhacks.android.ui.nav.SponsorsFragment;
+import com.mhacks.android.ui.nav.ScheduleFragment;
 import com.parse.ParseUser;
 import com.spartahack.android.R;
 
 import java.util.Date;
-
-//import com.google.android.gms.maps.MapFragment;
-
 /**
  * Created by Omkar Moghe on 10/22/2014.
  */
@@ -118,13 +115,13 @@ public class MainActivity extends ActionBarActivity
                 setToolbarTitle("Announcements");
                 break;
             case 1:
-//                ScheduleFragment scheduleFragment = new ScheduleFragment();
-//                fragmentTransaction.replace(R.id.main_container, scheduleFragment);
-//                fragmentTransaction.addToBackStack("Schedule").commit();
-//                setToolbarTitle("Schedule");
+                ScheduleFragment scheduleFragment = new ScheduleFragment();
+                fragmentTransaction.replace(R.id.main_container, scheduleFragment);
+                fragmentTransaction.addToBackStack("Schedule").commit();
+                setToolbarTitle("Schedule");
                 break;
             case 2:
-                SponsorsFragment sponsorsFragment = new SponsorsFragment();
+                ConciergeFragment sponsorsFragment = new ConciergeFragment();
                 fragmentTransaction.replace(R.id.main_container, sponsorsFragment);
                 fragmentTransaction.addToBackStack("Concierge").commit();
                 setToolbarTitle("Concierge");
@@ -160,12 +157,6 @@ public class MainActivity extends ActionBarActivity
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         mDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override

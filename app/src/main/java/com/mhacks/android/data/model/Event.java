@@ -2,15 +2,15 @@ package com.mhacks.android.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Omid Ghomeshi on 10/13/14.
@@ -20,23 +20,11 @@ public class Event extends ParseObject implements Parcelable {
 
     private static final String TAG = "Event";
 
-    public static final String CATEGORY_COL   = "category";
-    public static final String DETAILS_COL    = "details";
-    public static final String DURATION_COL   = "duration";
-    public static final String HOST_COL       = "host";
-    public static final String LOCATIONS_COL  = "locations";
-    public static final String START_TIME_COL = "startTime";
-    public static final String TITLE_COL      = "title";
+    public static final String DETAILS_COL    = "Details";
+    public static final String START_TIME_COL = "Time";
+    public static final String TITLE_COL      = "Title";
 
     public Event() {}
-
-    public EventType getCategory() {
-        return (EventType) getParseObject(CATEGORY_COL);
-    }
-
-    public void setCategory(EventType category) {
-        put(CATEGORY_COL, category);
-    }
 
     public String getDetails() {
         return getString(DETAILS_COL);
@@ -46,32 +34,31 @@ public class Event extends ParseObject implements Parcelable {
         put(DETAILS_COL, details);
     }
 
-    public int getDuration() {
-        return getInt(DURATION_COL);
-    }
-
-    public void setDuration(int duration) {
-        put(DURATION_COL, duration);
-    }
-
-    public Sponsor getHost() {
-        return (Sponsor) getParseObject(HOST_COL);
-    }
-
-    public void setHost(Sponsor sponsor) {
-        put(HOST_COL, sponsor);
-    }
-
-    public JSONArray getLocations() {
-        return getJSONArray(LOCATIONS_COL);
-    }
-
-    public void setLocations(JSONArray locations) {
-        put(LOCATIONS_COL, locations);
-    }
-
     public Date getStartTime() {
         return getDate(START_TIME_COL);
+    }
+
+    public String getDay() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(getStartTime()); // someDate is a Date
+        Locale locale = Locale.getDefault();
+        return cal.getDisplayName(Calendar.DAY_OF_WEEK,Calendar.LONG,locale);
+    }
+    public String getTime() throws ParseException {
+        //get date from parse
+        //can't get right dates from parse for whatever reason,
+        //so this hack is an offset of what should be displayed
+        Date dateOfEvent = getStartTime();
+        Calendar cal = Calendar.getInstance(); // creates calendar
+        cal.setTime(dateOfEvent); // sets calendar time/date
+        cal.add(Calendar.HOUR_OF_DAY, 4); // adds one hour
+        String offsetTimeStr = cal.getTime().toString().split(" ")[3]; // returns new date object, one hour in the future
+
+        SimpleDateFormat parseFormat = new SimpleDateFormat("HH:mm:ss");
+        Date offsetTime = parseFormat.parse(offsetTimeStr);
+        SimpleDateFormat printFormat = new SimpleDateFormat("h:mm a");
+//        Date date = parseFormat.parse(offsetTime);
+        return printFormat.format(offsetTime);
     }
 
     public void setStartTime(Date date) {
@@ -94,11 +81,7 @@ public class Event extends ParseObject implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(getObjectId());
-        parcel.writeParcelable(getCategory(), i);
         parcel.writeString(getDetails());
-        parcel.writeInt(getDuration());
-        parcel.writeParcelable(getHost(), i);
-        parcel.writeString(getLocations().toString()); //JSONArray to string.
         parcel.writeValue(getStartTime());
         parcel.writeString(getTitle());
     }
@@ -116,18 +99,9 @@ public class Event extends ParseObject implements Parcelable {
     };
 
     private Event(Parcel source) {
-        try {
-            setObjectId(source.readString());
-            setCategory((EventType) source.readParcelable(EventType.class.getClassLoader()));
-            setDetails(source.readString());
-            setDuration(source.readInt());
-            setHost((Sponsor) source.readParcelable(Sponsor.class.getClassLoader()));
-            setLocations(new JSONArray(source.readString()));
-            setStartTime((Date) source.readValue(Date.class.getClassLoader()));
-            setTitle(source.readString());
-        }
-        catch (JSONException e) {
-            Log.e(TAG, "JSON done goofed", e);
-        }
+        setObjectId(source.readString());
+        setDetails(source.readString());
+        setStartTime((Date) source.readValue(Date.class.getClassLoader()));
+        setTitle(source.readString());
     }
 }

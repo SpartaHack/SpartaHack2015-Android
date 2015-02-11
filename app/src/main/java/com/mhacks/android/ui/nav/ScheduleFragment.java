@@ -1,176 +1,110 @@
 package com.mhacks.android.ui.nav;
 
-import android.app.ActionBar;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.graphics.Color;
-import android.graphics.RectF;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.alamkanak.weekview.WeekView;
-import com.mhacks.android.ui.weekview.WeekViewModified;
-import com.alamkanak.weekview.WeekViewEvent;
 import com.mhacks.android.data.model.Event;
-import com.spartahack.android.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
+import com.spartahack.android.R;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
 /**
- * Created by Omkar Moghe on 10/25/2014.
+ * Created by Carl Johnson sometime in Spring 2015
  */
-public class ScheduleFragment extends Fragment implements ActionBar.TabListener,
-                                                          WeekViewModified.EventClickListener,
-                                                          WeekViewModified.EventLongPressListener,
-                                                          WeekViewModified.MonthChangeListener,
-                                                          WeekView.MonthChangeListener {
+public class ScheduleFragment extends Fragment{
 
-    public static final String TAG = "ScheduleFragment";
+    RecyclerView mRecyclerView;
+    // Adapter for the listView
+    ScheduleAdapter mListAdapter;
+    private View mScheduleFragView;
+    private ArrayList<Event> events;
+    private List<ScheduleSectionedRecyclerViewAdapter.Section> sections;
 
-    private View      mScheduleFragView;
-    private WeekViewModified  mWeekView;
-    private ActionBar actionBar;
-
-    private ParseUser mUser;
-
-    private List<Event> events;
-    private List<WeekViewEvent> finalEvents;
-
+    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
         mScheduleFragView = inflater.inflate(R.layout.fragment_schedule, container, false);
-
-        actionBar = getActivity().getActionBar();
-
-        // Adds tabs to the action bar. Not sure if this is the best way to do that.
-        if (actionBar != null) {
-            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-            if (actionBar.getTabCount() != 3) {
-                actionBar.removeAllTabs();
-                actionBar.addTab(actionBar.newTab().setText("Fri").setTabListener(this));
-                actionBar.addTab(actionBar.newTab().setText("Sat").setTabListener(this));
-                actionBar.addTab(actionBar.newTab().setText("Sun").setTabListener(this));
-            }
-        }
-
-        mUser = ParseUser.getCurrentUser();
-
-        // Week View set up.
-        mWeekView = (WeekViewModified) mScheduleFragView.findViewById(R.id.week_view);
-        setUpWeekView();
-
-        // List of events to be displayed on the WeekView
-        finalEvents = new ArrayList<WeekViewEvent>();
-
-        getEvents();
-
+        mRecyclerView = (RecyclerView)  mScheduleFragView.findViewById(R.id.list_cards);
         return mScheduleFragView;
     }
-
-    private void setUpWeekView() {
-        Calendar today = Calendar.getInstance();
-        today.set(Calendar.YEAR, 2015);
-        today.set(Calendar.MONTH, Calendar.JANUARY);
-        today.set(Calendar.DATE, 16);
-        mWeekView.setOnEventClickListener(this);
-        mWeekView.setEventLongPressListener(this);
-        mWeekView.setMonthChangeListener((WeekView.MonthChangeListener) this);
-        mWeekView.setMonthChangeListener((WeekViewModified.MonthChangeListener) this);
-        mWeekView.setBackgroundColor(Color.WHITE);
-        //mWeekView.setHorizontalScrollEnabled(false);
-        mWeekView.setToday(today);
-        onMonthChange(today.get(Calendar.YEAR), today.get(Calendar.MONTH));
-    }
-
     @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        //TODO set scroll to appropriate position on the schedule.
-        switch (tab.getPosition()) {
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-        }
-    }
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        events = new ArrayList<Event>();
+        sections = new ArrayList<>();
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+        // use a linear layout manager
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(layoutManager);
 
-    }
+        // Create and set the adapter for this recyclerView
+        //mListAdapter = new MainNavAdapter(getActivity());
 
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
-    }
 
-    /*
-    Queries events from Parse and assigns the list to the global List<Event> events.
-     */
-    public void getEvents() {
-        ParseQuery<Event> query = ParseQuery.getQuery("Event");
-        query.findInBackground(new FindCallback<Event>() {
-            public void done(List<Event> eventList, ParseException e) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
+        query.orderByAscending("Time");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objectList, ParseException e) {
                 if (e == null) {
-                    events = eventList;
-                    createEvents(events);
-                    Toast.makeText(getActivity(), "" + events.size(), Toast.LENGTH_SHORT).show();
+                    Log.d("Events", "Retrieved " + objectList.size() + " Events");
+                    String lastDay = null;
+                    int numEvents = 0;
+
+                    for (int i = 0; i < objectList.size(); i++) {
+                        Event event = (Event) objectList.get(i);
+
+                        String eventDay = event.getDay();
+
+                        if (!eventDay.equals(lastDay)) {
+                            sections.add(new ScheduleSectionedRecyclerViewAdapter.Section(i + numEvents, eventDay));
+                            //numEvents++;
+                        }
+                        event.setTitle(event.getString("Title"));
+                        event.setDetails(event.getString("Details"));
+                        Date timeOfEvent = event.getDate("Time");
+                        event.setStartTime(event.getDate("Time"));
+
+                        lastDay = eventDay;
+                        events.add(event);
+                    }
                 } else {
-                    Toast.makeText(getActivity(), "No events found.", Toast.LENGTH_SHORT).show();
+                    Log.d("Sponsors", "Error: " + e.getMessage());
                 }
+                mListAdapter = new ScheduleAdapter(getActivity(), events);
+                mRecyclerView.setAdapter(mListAdapter);
+
+                //Add your adapter to the sectionAdapter
+                ScheduleSectionedRecyclerViewAdapter.Section[] dummy = new ScheduleSectionedRecyclerViewAdapter.Section[sections.size()];
+                ScheduleSectionedRecyclerViewAdapter mSectionedAdapter = new
+                        ScheduleSectionedRecyclerViewAdapter(getActivity(), R.layout.section, R.id.section_text, mListAdapter);
+                mSectionedAdapter.setSections(sections.toArray(dummy));
+
+                //Apply this adapter to the RecyclerView
+                mRecyclerView.setAdapter(mSectionedAdapter);
+
             }
         });
-    }
 
-    private void createEvents(List<Event> events) {
-        finalEvents.clear();
-        for(Event event : events) {
-            //Create start event.
-            Calendar startTime = Calendar.getInstance();
-            startTime.setTime(event.getStartTime());
-            //Create end event.
-            Calendar endTime = (Calendar) startTime.clone();
-            int hourDuration = event.getDuration() / 3600;      //getDuration returns seconds as an int. Need to convert to hours.
-            int minuteDuration = event.getDuration() % 3600;    //Converting remainder of minutes to int minutes.
-            endTime.set(Calendar.HOUR_OF_DAY, startTime.get(Calendar.HOUR_OF_DAY) + hourDuration);
-            endTime.set(Calendar.MINUTE, startTime.get(Calendar.MINUTE) + minuteDuration);
-
-            //LOL don't look at the id code its sketch.
-            long id = (event.getObjectId().charAt(0) + event.getObjectId().charAt(1) + event.getObjectId().charAt(2)) * event.getObjectId().charAt(3);
-
-            //Create a WeekViewEvent using the startTime and endTime
-            WeekViewEvent weekViewEvent = new WeekViewEvent(id, event.getTitle(), startTime, endTime);
-            //TODO get color for the event using event.getColor() and select from the lsit of colors.
-            weekViewEvent.setColor(getResources().getColor(R.color.palette_3));
-            finalEvents.add(weekViewEvent);
-        }
-        onMonthChange(2015, 1);
-    }
-
-    @Override
-    public void onEventClick(WeekViewEvent event, RectF eventRect) {
-    }
-
-    @Override
-    public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
-
-    }
-
-    @Override
-    public List<WeekViewEvent> onMonthChange(int newYear, int newMonth) {
-        return finalEvents;
     }
 }

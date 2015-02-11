@@ -16,13 +16,14 @@
         android:background="@drawable/rounded_edittext"
         android:autoText="true"
         android:layout_margin="3dp"
-        android:minHeight="75dp"
+        android:minHeight="60dp"
         android:longClickable="true"
         android:textColor="@color/darkBrown"
         android:textCursorDrawable="@null"
-        android:hint="Problem? Contact the SpartaHack Team directly here."
         android:textColorHint="#A69779"
-        android:padding="5dp" />
+        android:padding="5dp"
+        android:hint="@string/conciergeInputHint"
+        android:nestedScrollingEnabled="true" />
 
     <Button
         android:layout_width="match_parent"
