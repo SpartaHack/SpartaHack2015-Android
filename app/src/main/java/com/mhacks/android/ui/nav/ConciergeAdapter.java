@@ -58,29 +58,51 @@ public class ConciergeAdapter extends RecyclerView.Adapter<ConciergeAdapter.Conc
 
     @Override
     public void onBindViewHolder(ConciergeViewHolder holder, final int position) {
-        holder.name.setText(mData.get(position).getName());
-        holder.specialty.setText(mData.get(position).getSpecialty());
-        holder.twitterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=" + mData.get(position).getTwitter())));
-                } catch (Exception e) {
-                    mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/#!/" + mData.get(position))));
+        String sponsorName = mData.get(position).getName();
+        String sponsorSpecialty = mData.get(position).getSpecialty();
+        final String twitterHandle = mData.get(position).getTwitter();
+        final String emailAddress = mData.get(position).getEmail();
+        if(sponsorName != null) {
+            holder.name.setText(sponsorName);
+        }
+        if(sponsorSpecialty != null) {
+            holder.specialty.setText(mData.get(position).getSpecialty());
+        }
+        if(twitterHandle == null) {
+            ViewGroup layout = (ViewGroup) holder.twitterButton.getParent();
+            if(null!=layout) //for safety only  as you are doing onClick
+                layout.removeView(holder.twitterButton);
+        }
+        if(emailAddress == null) {
+            ViewGroup layout = (ViewGroup) holder.mailButton.getParent();
+            if(null!=layout) //for safety only  as you are doing onClick
+                layout.removeView(holder.mailButton);
+        }
+        if(twitterHandle != null) {
+            holder.twitterButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=" + twitterHandle)));
+                    } catch (Exception e) {
+                        mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/#!/" + emailAddress)));
+                    }
                 }
-            }
-        });
-        holder.mailButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("plain/text");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[] { mData.get(position).getEmail() });
-                intent.putExtra(Intent.EXTRA_SUBJECT, "SpartaHack Help");
-                intent.putExtra(Intent.EXTRA_TEXT, "");
-                mContext.startActivity(Intent.createChooser(intent, ""));
-            }
-        });
+            });
+        }
+        if(emailAddress != null) {
+            holder.mailButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("plain/text");
+                    intent.putExtra(Intent.EXTRA_EMAIL, new String[]{mData.get(position).getEmail()});
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "SpartaHack Help");
+                    intent.putExtra(Intent.EXTRA_TEXT, "");
+                    mContext.startActivity(Intent.createChooser(intent, ""));
+                }
+            });
+        }
     }
 
     @Override

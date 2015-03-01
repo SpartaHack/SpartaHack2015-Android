@@ -40,15 +40,8 @@
         jar="C:\Users\owner\sparta-android\app\build\intermediates\exploded-aar\sparta-android\facebook\unspecified\classes.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="6da2ca67b8d0d3d3d43d5f15b98a57f4d646095e">
+        sha1="1c022d327cf16b44a41fdbdf919aa79a3659fadc">
         <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\classes-70371b6c5540b6705a91135115fabeef84abbb7a.jar" />
-    </item>
-    <item
-        jar="C:\Users\owner\.gradle\caches\modules-2\files-2.1\com.google.guava\guava\18.0\cce0823396aa693798f8882e64213b1772032b09\guava-18.0.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="cce0823396aa693798f8882e64213b1772032b09">
-        <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\guava-18.0-c105f40eac0d6b7a2aad745eb45978c6953eb52a.jar" />
     </item>
     <item
         jar="C:\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
@@ -56,6 +49,13 @@
         revision="20.0.0"
         sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
         <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-cde0fe43c1d155a84c58787d13ed53f1de001e61.jar" />
+    </item>
+    <item
+        jar="C:\Users\owner\.gradle\caches\modules-2\files-2.1\com.google.guava\guava\18.0\cce0823396aa693798f8882e64213b1772032b09\guava-18.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="cce0823396aa693798f8882e64213b1772032b09">
+        <dex dex="C:\Users\owner\sparta-android\app\build\intermediates\pre-dexed\debug\guava-18.0-c105f40eac0d6b7a2aad745eb45978c6953eb52a.jar" />
     </item>
     <item
         jar="C:\Users\owner\sparta-android\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.3\classes.jar"

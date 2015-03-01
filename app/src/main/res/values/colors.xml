@@ -16,6 +16,8 @@
     <color name="orange">#FFA500</color>
     <color name="lightBrown">#F7E8DE</color>
     <color name="darkBrown">#433830</color>
+    <color name="lighterDarkBrown">#ff706559</color>
+
     <!-- Special colors -->
     <color name="transparent">#00000000</color>
     <color name="spartaOrange">#D89F39</color>

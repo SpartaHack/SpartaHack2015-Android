@@ -1,25 +1,24 @@
 package com.mhacks.android.ui.nav;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.mhacks.android.data.model.Announcement;
 import com.mhacks.android.data.model.AnnouncementDud;
-import com.spartahack.android.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.spartahack.android.R;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,7 +27,7 @@ import java.util.List;
 /**
  * Created by Omkar Moghe on 10/25/2014.
  */
-public class AnnouncementsFragment extends Fragment{
+public class AnnouncementsFragment extends SwipeFragment {
     private static final String TAG = "MD/Announcements";
 
     // Caches all the Announcements found
@@ -39,13 +38,23 @@ public class AnnouncementsFragment extends Fragment{
     // Adapter for the listView
     MainNavAdapter mListAdapter;
 
+
+    private SwipeRefreshLayout mSwipeLayout;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_announcements, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.list_cards);
-
+        initSwipeLayout(view);
         return view;
+    }
+
+    public void reloadFragment() {
+        mAnnouncementsList = new ArrayList<AnnouncementDud>();
+        mListAdapter = new MainNavAdapter(getActivity());
+        mRecyclerView.setAdapter(mListAdapter);
+        super.reloadFragment();
     }
 
     @Override
@@ -56,14 +65,14 @@ public class AnnouncementsFragment extends Fragment{
         mAnnouncementsList = new ArrayList<AnnouncementDud>();
 
         // Initialize the test ListView
-        initList();
+        initListView();
 
         // Get Parse data of announcements for the first time
         initParseData();
     }
 
     // Set up the test listView for displaying announcements
-    private void initList() {
+    private void initListView() {
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
@@ -76,8 +85,8 @@ public class AnnouncementsFragment extends Fragment{
         mListAdapter = new MainNavAdapter(getActivity());
         mRecyclerView.setAdapter(mListAdapter);
     }
-
-    private void initParseData() {
+    @Override
+    protected void initParseData() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Announcement");
         query.addDescendingOrder(Announcement.DATE_COL);
         query.findInBackground(new FindCallback<ParseObject>() {

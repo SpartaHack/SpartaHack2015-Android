@@ -1,6 +1,5 @@
 package com.mhacks.android.ui.nav;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,9 +10,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mhacks.android.data.model.Sponsor;
 import com.parse.FindCallback;
@@ -42,7 +42,7 @@ import java.util.List;
  * Created by Omkar Moghe on 10/25/2014.
  * edited by Carl Johnson sometime in Spring 2015
  */
-public class ConciergeFragment extends Fragment{
+public class ConciergeFragment extends SwipeFragment{
 
     RecyclerView mRecyclerView;
     // Adapter for the listView
@@ -63,6 +63,7 @@ public class ConciergeFragment extends Fragment{
         //Put code for instantiating views, etc here. (before the return statement.)
         mConciergeContact = (Button) mConciergeFragView.findViewById(R.id.concierge_contact);
         mConciergeContactInput = (EditText) mConciergeFragView.findViewById(R.id.conciergeContactInput);
+        initSwipeLayout(mConciergeFragView);
         return mConciergeFragView;
     }
     @Override
@@ -77,12 +78,29 @@ public class ConciergeFragment extends Fragment{
         // use a linear layout manager
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
+        initParseData();
 
-        // Create and set the adapter for this recyclerView
-        //mListAdapter = new MainNavAdapter(getActivity());
+    mConciergeContact.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            try  {
+                final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
+            String attendeeRequest = mConciergeContactInput.getText().toString();
+            if(attendeeRequest.length()!=0) {
+                mConciergeContact.setEnabled(false);
+                new postToHTTP().execute(attendeeRequest);
+            }
+        }
+    });
 
+    }
 
-
+    @Override
+    protected void initParseData() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Concierge");
         query.include("Sponsor");
         query.include("Sponsor.object_id");
@@ -97,7 +115,11 @@ public class ConciergeFragment extends Fragment{
                     for (int i=0; i<objectList.size();i++) {
                         Sponsor sponsor = (Sponsor) objectList.get(i);
                         ParseObject user = sponsor.getParseUser("Sponsor");
-                        if(!sponsor.getTitle().equals(lastTitle)) {
+                        String sponsorTitle = sponsor.getTitle();
+                        if(sponsorTitle == null) {
+                            sponsorTitle = "SpartaHack";
+                        }
+                        if(!sponsorTitle.equals(lastTitle)) {
                             sections.add(new ConciergeSectionedRecyclerViewAdapter.Section(i,sponsor.getTitle()));
 //                            numSponsors++;
                         }
@@ -126,18 +148,15 @@ public class ConciergeFragment extends Fragment{
 
             }
         });
-
-    mConciergeContact.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            new postToHTTP().execute(mConciergeContactInput.getText().toString());
-        }
-    });
-
     }
-
+    public void reloadFragment() {
+        //initialize your lists
+        sponsors = new ArrayList<Sponsor>();
+        sections = new ArrayList<ConciergeSectionedRecyclerViewAdapter.Section>();
+        super.reloadFragment();
+    }
     /**
-     * post to Slack API for Concierge Service asynchronously
+     * post to Slack API for Concierge Service via webhook asynchronously
      * we will use #concierge in slack to deal with problems attendess are having
      */
     private class postToHTTP extends AsyncTask<String, Void, String> {
@@ -175,77 +194,13 @@ public class ConciergeFragment extends Fragment{
                 // TODO Auto-generated catch block
             }
         }
-    }
 
-
-
-    class MainNavAdapter extends RecyclerView.Adapter<MainNavAdapter.ViewHolder> {
-        Context mContext;
-        private List<String> mData;
-        // Default constructor
-        MainNavAdapter(Context context) {
-            this.mContext = context;
-        }
-
-//        public ConciergeAdapter(Context context, String[] data) {
-//            mContext = context;
-//            if (data != null)
-//                mData = new ArrayList<String>(Arrays.asList(data));
-//            else mData = new ArrayList<String>();
-//        }
-
-        // Simple class that holds all the views that need to be reused
-        class ViewHolder extends RecyclerView.ViewHolder{
-            public TextView nameView;
-            public TextView specialtyView;
-            public TextView descriptionView;
-            public TextView valueView;
-
-
-            // Default constructor, itemView holds all the views that need to be saved
-            public ViewHolder(View itemView) {
-                super(itemView);
-
-                // Save the TextViews
-                this.nameView = (TextView) itemView.findViewById(R.id.concierge_name);
-                this.specialtyView = (TextView) itemView.findViewById(R.id.concierge_specialty);
-            }
-        }
-
-        // Create new views (invoked by the layout manager)
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-            // Create the view for this row
-            View row = LayoutInflater.from(mContext)
-                    .inflate(R.layout.concierge_grid_item, viewGroup, false);
-
-            // Create a new viewHolder which caches all the views that needs to be saved
-            ViewHolder viewHolder = new ViewHolder(row);
-
-            return viewHolder;
-        }
-
-        // Replace the contents of a view (invoked by the layout manager)
-        @Override
-        public void onBindViewHolder(ViewHolder viewHolder, int i) {
-            // - get element from your dataset at this position
-            // - replace the contents of the view with that element
-
-            // Get the current announcement item
-            Sponsor sponsor = sponsors.get(i);
-
-            // Set this item's views based off of the announcement data
-            viewHolder.nameView.setText(sponsor.getName());
-            viewHolder.specialtyView.setText(sponsor.getSpecialty());
-
-        }
-
-        // Return the size of your dataset (invoked by the layout manager)
-        @Override
-        public int getItemCount() {
-            return sponsors.size();
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Toast.makeText(mConciergeFragView.getContext(), "Thanks! Your request was sent to the SpartaHack Team.",Toast.LENGTH_SHORT);
+            mConciergeContactInput.setText("");
+            mConciergeContact.setEnabled(true);
         }
     }
-
-
 }

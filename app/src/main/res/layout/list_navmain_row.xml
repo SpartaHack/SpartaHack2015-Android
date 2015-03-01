@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:text="@string/garbage_fill_short"
-        android:textColor="@color/black"
+        android:textColor="@color/darkBrown"
         android:textSize="@dimen/text_nav_main"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"

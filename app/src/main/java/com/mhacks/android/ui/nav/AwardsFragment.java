@@ -1,9 +1,9 @@
 package com.mhacks.android.ui.nav;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Created by Omkar Moghe on 10/25/2014.
  */
-public class AwardsFragment extends Fragment{
+public class AwardsFragment extends SwipeFragment{
 
     private View mAwardsFragView;
     RecyclerView mRecyclerView;
@@ -34,6 +34,8 @@ public class AwardsFragment extends Fragment{
     MainNavAdapter mListAdapter;
     public String sponsorName;
 
+    private SwipeRefreshLayout mSwipeLayout;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -41,8 +43,8 @@ public class AwardsFragment extends Fragment{
                              Bundle savedInstanceState) {
         mAwardsFragView = inflater.inflate(R.layout.fragment_awards, container, false);
         mRecyclerView = (RecyclerView)  mAwardsFragView.findViewById(R.id.list_cards);
-        //Put code for instantiating views, etc here. (before the return statement.)
 
+        initSwipeLayout(mAwardsFragView);
         return mAwardsFragView;
     }
 
@@ -62,8 +64,18 @@ public class AwardsFragment extends Fragment{
         // Create and set the adapter for this recyclerView
         mListAdapter = new MainNavAdapter(getActivity());
         mRecyclerView.setAdapter(mListAdapter);
+        initParseData();
+    }
 
-
+    @Override
+    protected void reloadFragment() {
+        awardList = new ArrayList<Award>();
+        mListAdapter = new MainNavAdapter(getActivity());
+        mRecyclerView.setAdapter(mListAdapter);
+        super.reloadFragment();
+    }
+    @Override
+    public void initParseData() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Award");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -87,7 +99,6 @@ public class AwardsFragment extends Fragment{
                 mListAdapter.notifyDataSetChanged();
             }
         });
-
     }
 
     class MainNavAdapter extends RecyclerView.Adapter<MainNavAdapter.ViewHolder> {
@@ -158,4 +169,25 @@ public class AwardsFragment extends Fragment{
             return awardList.size();
         }
     }
+//
+//    private class AsyncTaskRunner extends AsyncTask<String, String, Integer> {
+//
+//        @Override
+//        protected Integer doInBackground(String... params) {
+//            reloadFragment();
+//            return 1;
+//        }
+//
+//        /*
+//         * (non-Javadoc)
+//         *
+//         * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+//         */
+//        @Override
+//        protected void onPostExecute(Integer result) {
+//            // execution of result of Long time consuming operation
+//            mSwipeLayout.setRefreshing(false);
+//        }
+//    }
+
 }

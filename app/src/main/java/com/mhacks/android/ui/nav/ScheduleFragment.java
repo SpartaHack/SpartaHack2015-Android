@@ -1,6 +1,5 @@
 package com.mhacks.android.ui.nav;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,7 +24,7 @@ import java.util.List;
 /**
  * Created by Carl Johnson sometime in Spring 2015
  */
-public class ScheduleFragment extends Fragment{
+public class ScheduleFragment extends SwipeFragment{
 
     RecyclerView mRecyclerView;
     // Adapter for the listView
@@ -41,6 +40,7 @@ public class ScheduleFragment extends Fragment{
                              Bundle savedInstanceState) {
         mScheduleFragView = inflater.inflate(R.layout.fragment_schedule, container, false);
         mRecyclerView = (RecyclerView)  mScheduleFragView.findViewById(R.id.list_cards);
+        initSwipeLayout(mScheduleFragView);
         return mScheduleFragView;
     }
     @Override
@@ -58,9 +58,12 @@ public class ScheduleFragment extends Fragment{
 
         // Create and set the adapter for this recyclerView
         //mListAdapter = new MainNavAdapter(getActivity());
+        initParseData();
 
 
-
+    }
+    @Override
+    protected void initParseData() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
         query.orderByAscending("Time");
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -89,7 +92,7 @@ public class ScheduleFragment extends Fragment{
                         events.add(event);
                     }
                 } else {
-                    Log.d("Sponsors", "Error: " + e.getMessage());
+                    Log.d("Events", "Error: " + e.getMessage());
                 }
                 mListAdapter = new ScheduleAdapter(getActivity(), events);
                 mRecyclerView.setAdapter(mListAdapter);
@@ -105,6 +108,13 @@ public class ScheduleFragment extends Fragment{
 
             }
         });
-
     }
+    @Override
+    protected void reloadFragment() {
+        events = new ArrayList<Event>();
+        sections = new ArrayList<>();
+        super.reloadFragment();
+    }
+
 }
+

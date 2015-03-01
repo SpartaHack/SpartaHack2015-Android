@@ -5,12 +5,14 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_margin="1dp"
+    card_view:contentPadding="12dp"
+    card_view:contentPaddingTop="12dp"
+    card_view:contentPaddingBottom="12dp"
     android:layout_centerHorizontal="true"
-    android:background="@color/lightBrown"
-    card_view:cardCornerRadius="2dp"
-    card_view:cardElevation="3dp"
-    card_view:contentPadding="5dp">
+    card_view:cardCornerRadius="1dp"
+    card_view:cardElevation="1dp"
+    card_view:cardBackgroundColor="#fffff0e6">
 
     <LinearLayout
         android:orientation="vertical"
@@ -27,8 +29,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Event Title"
-                android:textColor="@color/black"
+                android:textColor="@color/darkBrown"
                 android:textSize="@dimen/text_announcement_title"
+                android:textStyle="bold"
                 />
 
             <View
@@ -43,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="12:00"
-                android:textColor="@color/gray"
+                android:textColor="@color/lighterDarkBrown"
                 android:textSize="@dimen/text_announcement_date"/>
 
         </LinearLayout>
@@ -59,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="Details of the Event"
-                android:textColor="@color/black"
+                android:textColor="@color/darkBrown"
                 android:textSize="@dimen/text_announcement_description" />
         </LinearLayout>
 

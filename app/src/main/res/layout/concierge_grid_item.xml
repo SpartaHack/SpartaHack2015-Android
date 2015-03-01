@@ -6,10 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="1dp"
+    card_view:contentPadding="12dp"
+    card_view:contentPaddingTop="12dp"
+    card_view:contentPaddingBottom="12dp"
     android:layout_centerHorizontal="true"
-    card_view:cardCornerRadius="2dp"
-    card_view:cardElevation="3dp"
-    card_view:contentPadding="5dp">
+    card_view:cardCornerRadius="1dp"
+    card_view:cardElevation="1dp"
+    card_view:cardBackgroundColor="#fffff0e6">
 
     <RelativeLayout
         android:orientation="horizontal"
@@ -28,8 +31,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="Concierge Name"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_announcement_description" />
+                android:textStyle="bold"
+                android:textColor="@color/darkBrown"
+                android:textSize="@dimen/text_announcement_title" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -37,7 +41,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Specialty"
                 android:id="@+id/concierge_specialty"
-                android:textColor="@color/gray"
+                android:textColor="@color/lighterDarkBrown"
                 android:layout_marginLeft="5dp"
                 android:layout_marginBottom="5dp" />
 

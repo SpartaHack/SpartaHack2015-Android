@@ -94,5 +94,5 @@
     <string name="log_out">Log Out</string>
     <string name="refresh">Refresh</string>
     <string name="countdown">Countdown Timer</string>
-    <string name="conciergeInputHint">Need anything from SpartaHack? Enter your request and location here.</string>
+    <string name="conciergeInputHint">Enter your request and location here.</string>
 </resources>

@@ -5,11 +5,14 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_margin="1dp"
+    card_view:contentPadding="12dp"
+    card_view:contentPaddingTop="12dp"
+    card_view:contentPaddingBottom="12dp"
     android:layout_centerHorizontal="true"
-    card_view:cardCornerRadius="2dp"
-    card_view:cardElevation="3dp"
-    card_view:contentPadding="5dp">
+    card_view:cardCornerRadius="1dp"
+    card_view:cardElevation="1dp"
+    card_view:cardBackgroundColor="#fffff0e6">
 
     <LinearLayout
         android:orientation="vertical"
@@ -26,9 +29,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lorem ipsum doler"
-                android:textColor="@color/black"
+
+                android:textColor="@color/darkBrown"
                 android:textSize="@dimen/text_announcement_title"
-            />
+                android:textStyle="bold" />
 
             <View
                 android:layout_width="0dp"
@@ -42,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="1/15/16"
-                android:textColor="@color/gray"
+                android:textColor="@color/lighterDarkBrown"
                 android:textSize="@dimen/text_announcement_date"/>
 
         </LinearLayout>
@@ -51,10 +55,9 @@
             android:id="@+id/info_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:text="@string/garbage_fill_medium"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_announcement_description"/>
+            android:textColor="@color/darkBrown"
+            android:textSize="@dimen/text_announcement_description" />
 
     </LinearLayout>
 

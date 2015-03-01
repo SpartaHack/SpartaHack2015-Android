@@ -174,7 +174,7 @@ public final class R {
 	public static final class style {
 		public static final int com_facebook_loginview_default_style = 0x7f0d00f5;
 		public static final int com_facebook_loginview_silver_style = 0x7f0d00f6;
-		public static final int tooltip_bubble_text = 0x7f0d00f7;
+		public static final int tooltip_bubble_text = 0x7f0d00f8;
 	}
 	public static final class styleable {
 		public static final int[] com_facebook_friend_picker_fragment = { 0x7f0100ee };

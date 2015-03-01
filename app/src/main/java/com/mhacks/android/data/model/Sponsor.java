@@ -39,17 +39,29 @@ public class Sponsor extends ParseObject implements Parcelable {
         return getString(SPECIALTY_COL);
     }
     public void setTitle(String title ) {
-        put(TITLE_COL, title);
+        if(title != null) {
+            put(TITLE_COL, title);
+        }
     }
-    public void setName(String _name ) { put(NAME_COL,_name); }
+    public void setName(String _name ) {
+        if(_name != null) {
+            put(NAME_COL,_name);
+        }
+    }
     public void setTwitter(String _twitter ) {
-        put(TWITTER_COL,_twitter);
+        if(_twitter != null) {
+            put(TWITTER_COL, _twitter);
+        }
     }
     public void setEmail(String _email) {
-        put(EMAIL_COL,_email);
+        if(_email != null) {
+            put(EMAIL_COL,_email);
+        }
     }
-    public void setSpecialty(String _speciality) {
-        put(SPECIALTY_COL,_speciality);
+    public void setSpecialty(String _specialty) {
+        if(_specialty != null) {
+            put(SPECIALTY_COL,_specialty);
+        }
     }
     public Sponsor() {}
 

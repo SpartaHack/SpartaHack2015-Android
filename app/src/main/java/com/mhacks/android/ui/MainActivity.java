@@ -3,7 +3,9 @@ package com.mhacks.android.ui;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -20,11 +22,14 @@ import com.parse.ParseUser;
 import com.spartahack.android.R;
 
 import java.util.Date;
+
+
 /**
  * Created by Omkar Moghe on 10/22/2014.
  */
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks
+         {
 
     public static final String TAG = "MainActivity";
 
@@ -38,6 +43,9 @@ public class MainActivity extends ActionBarActivity
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private Handler handler = new Handler();
 
     private boolean mShouldSync = true;
 
@@ -66,9 +74,24 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager().findFragmentById(R.id.navigation_drawer);
 
         mUser = ParseUser.getCurrentUser();
+//
+//        // find the layout
+//        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+//        // the refresh listner. this would be called when the layout is pulled down
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                Log.d("RF","FRESH");
+//                // get the new data from you data source
+//                // TODO : request data here
+//                // our swipeRefreshLayout needs to be notified when the data is returned in order for it to stop the animation
+//               // handler.post(refreshing);
+//            }
+//        });
 
         setDefaultFragment();
     }
+
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -152,6 +175,17 @@ public class MainActivity extends ActionBarActivity
         }
         return super.onOptionsItemSelected(item);
     }
+
+//    @Override
+//    public void onRefresh() {
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            public void run() {
+//                SwipeRefreshLayout refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+//                refreshLayout.setRefreshing(false);
+//            }
+//        }, 2500);
+//    }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
